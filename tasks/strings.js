@@ -61,8 +61,12 @@ function concatenateStrings(value1, value2) {
    *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
    */
   function getStringFromTemplate(firstName, lastName) {
+    let strTemp = `Hello, ${firstName} ${lastName}`;
+    return strTemp;
     throw new Error('Not implemented');
   }
+  let temp = getStringFromTemplate('john', 'Doe');
+  console.log(temp);
   
   /**
    * Extracts a name from template string 'Hello, First_Name Last_Name!'.

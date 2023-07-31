@@ -15,3 +15,12 @@ function concatenateStrings(value1, value2) {
   }
   let len = getStringLength('hello');
   console.log(len);
+
+
+  function getStringFromTemplate(firstName, lastName) {
+    let strTemp = `Hello, ${firstName} ${lastName}`;
+    return strTemp;
+    throw new Error('Not implemented');
+  }
+  let temp = getStringFromTemplate('john', 'Doe');
+  console.log(temp);
