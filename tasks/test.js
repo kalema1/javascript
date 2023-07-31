@@ -24,3 +24,11 @@ function concatenateStrings(value1, value2) {
   }
   let temp = getStringFromTemplate('john', 'Doe');
   console.log(temp);
+
+  function  extractNameFromTemplate(value) {
+    let extractedName = value.slice(7);
+    return extractedName;
+    throw new Error('Not implemented');
+  }
+  let extNme = extractNameFromTemplate(`hello, Chuck Norris`);
+  console.log(extNme);

@@ -79,9 +79,12 @@ function concatenateStrings(value1, value2) {
    *   'Hello, Chuck Norris!' => 'Chuck Norris'
    */
   function  extractNameFromTemplate(value) {
+    let extractedName = value.slice(7);
+    return extractedName;
     throw new Error('Not implemented');
   }
-  
+  let extNme = extractNameFromTemplate(`hello, John Doe`);
+  console.log(extNme);
   
   /**
    * Returns a first char of the given string.
