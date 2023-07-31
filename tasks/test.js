@@ -41,3 +41,11 @@ function concatenateStrings(value1, value2) {
   }
   let char = getFirstChar(`John Doe`);
   console.log(char);
+
+  function removeLeadingAndTrailingWhitespaces(value) {
+    let newStr = value.trim();
+    return newStr;
+    throw new Error('Not implemented');
+  }
+  let remLeadTrail = removeLeadingAndTrailingWhitespaces('\tHello, World! ');
+  console.log(remLeadTrail);

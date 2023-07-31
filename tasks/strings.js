@@ -116,8 +116,12 @@ function concatenateStrings(value1, value2) {
    *   '\tHello, World! ' => 'Hello, World!'
    */
   function removeLeadingAndTrailingWhitespaces(value) {
+    let newStr = value.trim();
+    return newStr;
     throw new Error('Not implemented');
   }
+  let remLeadTrail = removeLeadingAndTrailingWhitespaces('  Abracadabra');
+  console.log(remLeadTrail);
   
   /**
    * Returns a string that repeated the specified number of times.
