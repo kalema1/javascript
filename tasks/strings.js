@@ -195,8 +195,11 @@ function concatenateStrings(value1, value2) {
    *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
    */
   function convertToUpperCase(str) {
+    return str.toUpperCase();
     throw new Error('Not implemented');
   }
+  let toUpp = convertToUpperCase('Thunderstruck');
+  console.log(toUpp);
   
   /**
    * Extracts e-mails from single string with e-mails list delimeted by semicolons

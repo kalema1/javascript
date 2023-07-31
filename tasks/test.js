@@ -76,3 +76,10 @@ function concatenateStrings(value1, value2) {
   }
   let uncova = unbracketTag('<span>');
   console.log(uncova);
+
+  function convertToUpperCase(str) {
+    return str.toUpperCase();
+    throw new Error('Not implemented');
+  }
+  let toUpp = convertToUpperCase('Thunderstruck');
+  console.log(toUpp);
