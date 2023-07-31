@@ -40,8 +40,12 @@ function concatenateStrings(value1, value2) {
    *   ''      => 0
    */
   function getStringLength(value) {
+    let strLen = value.length;
+    return strLen;
     throw new Error('Not implemented');
   }
+  let len = getStringLength('hello');
+  console.log(len);
   
   /**
    * Returns the result of string template and given parameters firstName and lastName.
