@@ -49,3 +49,11 @@ function concatenateStrings(value1, value2) {
   }
   let remLeadTrail = removeLeadingAndTrailingWhitespaces('\tHello, World! ');
   console.log(remLeadTrail);
+
+  function repeatString(value, count) {
+    let repeatStr = value.repeat(count);
+    return repeatStr;
+    throw new Error('Not implemented');
+  }
+  let rep =repeatString('A', 5);
+  console.log(rep);

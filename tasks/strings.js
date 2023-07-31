@@ -135,8 +135,12 @@ function concatenateStrings(value1, value2) {
    *   'cat', 3 => 'catcatcat'
    */
   function repeatString(value, count) {
+    let repeatStr = value.repeat(count);
+    return repeatStr;
     throw new Error('Not implemented');
   }
+  let rep =repeatString('cat', 5);
+  console.log(rep);
   
   /**
    * Remove the first occurrence of string inside another string
