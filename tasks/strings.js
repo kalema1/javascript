@@ -213,8 +213,11 @@ function concatenateStrings(value1, value2) {
    *   'info@gmail.com' => ['info@gmail.com']
    */
   function extractEmails(str) {
+    return str.match(/([a-zA-Z0-9._+-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g);
     throw new Error('Not implemented');
   }
+  let emails = extractEmails('angus.young@gmail.com;brian.johnson@hotmail.com;bon.scott@yahoo.com');
+  console.log(emails);
   
   /**
    * Returns the string representation of rectangle with specified width and height

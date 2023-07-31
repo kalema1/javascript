@@ -83,3 +83,10 @@ function concatenateStrings(value1, value2) {
   }
   let toUpp = convertToUpperCase('Thunderstruck');
   console.log(toUpp);
+
+  function extractEmails(str) {
+    return str.match(/([a-zA-Z0-9._+-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g);
+    throw new Error('Not implemented');
+  }
+  let emails = extractEmails('info@gmail.com');
+  console.log(emails);
