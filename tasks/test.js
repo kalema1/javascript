@@ -57,3 +57,14 @@ function concatenateStrings(value1, value2) {
   }
   let rep =repeatString('A', 5);
   console.log(rep);
+
+  function removeFirstOccurrences(str, value)  {
+    let index = str.indexOf(value);
+    if (index === -1){
+      return str;
+    }
+    return str.slice(0, index) + (str.slice(index + value.length).trim());
+    throw new Error('Not implemented');
+  }
+  let remFirst = removeFirstOccurrences('To be or not to be', 'not');
+  console.log(remFirst);
