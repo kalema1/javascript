@@ -68,3 +68,11 @@ function concatenateStrings(value1, value2) {
   }
   let remFirst = removeFirstOccurrences('To be or not to be', 'not');
   console.log(remFirst);
+
+
+  function unbracketTag(str) {
+    return str.slice(1, -1);
+    throw new Error('Not implemented');
+  }
+  let uncova = unbracketTag('<span>');
+  console.log(uncova);
