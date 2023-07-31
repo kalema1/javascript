@@ -32,3 +32,12 @@ function concatenateStrings(value1, value2) {
   }
   let extNme = extractNameFromTemplate(`hello, Chuck Norris`);
   console.log(extNme);
+
+
+  function getFirstChar(value) {
+    let firstChar = value[0];
+    return firstChar;
+    throw new Error('Not implemented');
+  }
+  let char = getFirstChar(`John Doe`);
+  console.log(char);

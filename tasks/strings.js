@@ -97,8 +97,12 @@ function concatenateStrings(value1, value2) {
    *   'cat'       => 'c'
    */
   function getFirstChar(value) {
+    let firstChar = value[0];
+    return firstChar;
     throw new Error('Not implemented');
   }
+  let char = getFirstChar(`John Doe`);
+  console.log(char);
   
   /**
    * Removes a leading and trailing whitespace characters from string.
