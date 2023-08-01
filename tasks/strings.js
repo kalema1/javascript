@@ -236,20 +236,20 @@ function concatenateStrings(value1, value2) {
     const topRight = '┐';
     const bottomLeft = '└';
     const bottomRight = '┘';
-    const horizontalLine = '-';
+    const horizontalLine = '─';
     const verticalLine = '|';
     const space = ' ';
     let rectangle = '';
 
-    rectangle += '\'' + topLeft + horizontalLine.repeat(width - 2) + topRight + '\\n' + '\n';
+    rectangle += '\'' + topLeft + horizontalLine.repeat(width - 2) + topRight + '\\n\'+' + '\n';
     for (let i = 0; i < height - 2; i++){
-      rectangle += '\'' + verticalLine + space.repeat(width - 2) + verticalLine +  '\\n' + '\n';
+      rectangle += '\'' + verticalLine + space.repeat(width - 2) + verticalLine +  '\\n\'+' + '\n';
     }
-    rectangle += '\'' + bottomLeft + horizontalLine.repeat(width - 2) + bottomRight + '\n';
+    rectangle += '\'' + bottomLeft + horizontalLine.repeat(width - 2) + bottomRight + '\\n\'' + '\n';
     return rectangle;
 
   }
-  let rect = getRectangleString(6,4);
+  let rect = getRectangleString(12,3);
   console.log(rect);
   
   /**
