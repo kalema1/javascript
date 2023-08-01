@@ -22,7 +22,6 @@
 function concatenateStrings(value1, value2) {
     let concat = value1 + value2;
     return concat;
-    throw new Error('Not implemented');
   }
 
   let results = concatenateStrings('Hello', 'world');
@@ -42,7 +41,6 @@ function concatenateStrings(value1, value2) {
   function getStringLength(value) {
     let strLen = value.length;
     return strLen;
-    throw new Error('Not implemented');
   }
   let len = getStringLength('hello');
   console.log(len);
@@ -63,7 +61,6 @@ function concatenateStrings(value1, value2) {
   function getStringFromTemplate(firstName, lastName) {
     let strTemp = `Hello, ${firstName} ${lastName}`;
     return strTemp;
-    throw new Error('Not implemented');
   }
   let temp = getStringFromTemplate('john', 'Doe');
   console.log(temp);
@@ -81,7 +78,6 @@ function concatenateStrings(value1, value2) {
   function  extractNameFromTemplate(value) {
     let extractedName = value.slice(7);
     return extractedName;
-    throw new Error('Not implemented');
   }
   let extNme = extractNameFromTemplate(`hello, John Doe`);
   console.log(extNme);
@@ -99,7 +95,6 @@ function concatenateStrings(value1, value2) {
   function getFirstChar(value) {
     let firstChar = value[0];
     return firstChar;
-    throw new Error('Not implemented');
   }
   let char = getFirstChar(`John Doe`);
   console.log(char);
@@ -118,7 +113,6 @@ function concatenateStrings(value1, value2) {
   function removeLeadingAndTrailingWhitespaces(value) {
     let newStr = value.trim();
     return newStr;
-    throw new Error('Not implemented');
   }
   let remLeadTrail = removeLeadingAndTrailingWhitespaces('  Abracadabra');
   console.log(remLeadTrail);
@@ -137,7 +131,6 @@ function concatenateStrings(value1, value2) {
   function repeatString(value, count) {
     let repeatStr = value.repeat(count);
     return repeatStr;
-    throw new Error('Not implemented');
   }
   let rep =repeatString('cat', 5);
   console.log(rep);
@@ -160,7 +153,6 @@ function concatenateStrings(value1, value2) {
       return str;
     }
     return str.slice(0, index) + (str.slice(index + value.length).trim());
-    throw new Error('Not implemented');
   }
   let remFirst = removeFirstOccurrences('To be or not to be', 'not');
   console.log(remFirst);
@@ -178,7 +170,6 @@ function concatenateStrings(value1, value2) {
    */
   function unbracketTag(str) {
     return str.slice(1, -1);
-    throw new Error('Not implemented');
   }
   let uncova = unbracketTag('<div>');
   console.log(uncova);
@@ -196,7 +187,6 @@ function concatenateStrings(value1, value2) {
    */
   function convertToUpperCase(str) {
     return str.toUpperCase();
-    throw new Error('Not implemented');
   }
   let toUpp = convertToUpperCase('Thunderstruck');
   console.log(toUpp);
@@ -214,7 +204,6 @@ function concatenateStrings(value1, value2) {
    */
   function extractEmails(str) {
     return str.match(/([a-zA-Z0-9._+-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g);
-    throw new Error('Not implemented');
   }
   let emails = extractEmails('angus.young@gmail.com;brian.johnson@hotmail.com;bon.scott@yahoo.com');
   console.log(emails);
@@ -243,9 +232,25 @@ function concatenateStrings(value1, value2) {
    *
    */
   function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+    const topLeft = '┌';
+    const topRight = '┐';
+    const bottomLeft = '└';
+    const bottomRight = '┘';
+    const horizontalLine = '-';
+    const verticalLine = '|';
+    const space = ' ';
+    let rectangle = '';
+
+    rectangle += '\'' + topLeft + horizontalLine.repeat(width - 2) + topRight + '\\n' + '\n';
+    for (let i = 0; i < height - 2; i++){
+      rectangle += '\'' + verticalLine + space.repeat(width - 2) + verticalLine +  '\\n' + '\n';
+    }
+    rectangle += '\'' + bottomLeft + horizontalLine.repeat(width - 2) + bottomRight + '\n';
+    return rectangle;
+
   }
-  
+  let rect = getRectangleString(6,4);
+  console.log(rect);
   
   /**
    * Encode specified string with ROT13 cipher

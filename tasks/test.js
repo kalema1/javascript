@@ -1,4 +1,4 @@
-function concatenateStrings(value1, value2) {
+/* function concatenateStrings(value1, value2) {
     let concat = value1 + value2;
     return concat;
     throw new Error('Not implemented');
@@ -89,4 +89,25 @@ function concatenateStrings(value1, value2) {
     throw new Error('Not implemented');
   }
   let emails = extractEmails('info@gmail.com');
-  console.log(emails);
+  console.log(emails); */
+
+  function getRectangleString(width, height) {
+    const topLeft = '┌';
+    const topRight = '┐';
+    const bottomLeft = '└';
+    const bottomRight = '┘';
+    const horizontalLine = '─';
+    const verticalLine = '|';
+    const space = ' ';
+    let rectangle = '';
+
+    rectangle += '\'' + topLeft + horizontalLine.repeat(width - 2) + topRight + '\\n' + '\n';
+    for (let i = 0; i < height - 2; i++){
+      rectangle += '\'' + verticalLine + space.repeat(width - 2) + verticalLine +  '\\n' + '\n';
+    }
+    rectangle += '\'' + bottomLeft + horizontalLine.repeat(width - 2) + bottomRight + '\n';
+    return rectangle;
+
+  }
+  let rect = getRectangleString(6,4);
+  console.log(rect);
