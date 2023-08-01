@@ -297,9 +297,15 @@ function concatenateStrings(value1, value2) {
    *   isString(new String('test')) => true
    */
   function isString(value) {
-    throw new Error('Not implemented');
+    if (typeof value === 'string'){
+      return true;
+    }
+    else {
+      return false;
+    }
   }
-  
+  let s = isString('test');
+  console.log(s);
   
   /**
    * Returns playid card id.
