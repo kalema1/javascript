@@ -269,8 +269,19 @@ function concatenateStrings(value1, value2) {
    *
    */
   function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    const alphaOriginal = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    const alphaRot13 = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
+    let encoded = "";
+
+    for (let i = 0; i < str.length; i++){
+      const index = alphaOriginal.indexOf(str[i]);
+      encoded += alphaRot13[index];
+    }
+    return encoded;
+
   }
+  let rot13 = encodeToRot13("hello");
+  console.log(rot13);
   
   /**
    * Returns true if the value is string; otherwise false.
