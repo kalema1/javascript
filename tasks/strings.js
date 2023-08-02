@@ -24,14 +24,14 @@ function concatenateStrings(value1, value2) {
     return concat;
   }
 
-  let results = concatenateStrings('Hello', 'world');
+  let results = concatenateStrings('aa', 'bb');
   console.log(results);
   
   /**
    * Returns the length of given string.
    *
    * @param {string} value
-   * @return {number}
+   * @return {number} Strlen
    *
    * @example
    *   'aaaaa' => 5
@@ -42,7 +42,7 @@ function concatenateStrings(value1, value2) {
     let strLen = value.length;
     return strLen;
   }
-  let len = getStringLength('hello');
+  let len = getStringLength('aaaaa');
   console.log(len);
   
   /**
@@ -52,14 +52,14 @@ function concatenateStrings(value1, value2) {
    *
    * @param {string} firstName
    * @param {string} lastName
-   * @return {string}
+   * @return {string} strTemp
    *
    * @example
    *   'John','Doe'      => 'Hello, John Doe!'
    *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
    */
   function getStringFromTemplate(firstName, lastName) {
-    let strTemp = `Hello, ${firstName} ${lastName}`;
+    let strTemp = `Hello, ${firstName} ${lastName}!`;
     return strTemp;
   }
   let temp = getStringFromTemplate('john', 'Doe');
@@ -69,24 +69,24 @@ function concatenateStrings(value1, value2) {
    * Extracts a name from template string 'Hello, First_Name Last_Name!'.
    *
    * @param {string} value
-   * @return {string}
+   * @return {string} extractedName
    *
    * @example
    *   'Hello, John Doe!' => 'John Doe'
    *   'Hello, Chuck Norris!' => 'Chuck Norris'
    */
   function  extractNameFromTemplate(value) {
-    let extractedName = value.slice(7);
+    let extractedName = value.slice(7, -1);
     return extractedName;
   }
-  let extNme = extractNameFromTemplate(`hello, John Doe`);
+  let extNme = extractNameFromTemplate('Hello, Chuck Norris!');
   console.log(extNme);
   
   /**
    * Returns a first char of the given string.
    *
    * @param {string} value
-   * @return {string}
+   * @return {string} firstChar
    *
    * @example
    *   'John Doe'  => 'J'
@@ -122,7 +122,7 @@ function concatenateStrings(value1, value2) {
    *
    * @param {string} value
    * @param {string} count
-   * @return {string}
+   * @return {string} repeatStr
    *
    * @example
    *   'A', 5  => 'AAAAA'
@@ -132,7 +132,7 @@ function concatenateStrings(value1, value2) {
     let repeatStr = value.repeat(count);
     return repeatStr;
   }
-  let rep =repeatString('cat', 5);
+  let rep =repeatString('A', 5);
   console.log(rep);
   
   /**
@@ -140,7 +140,7 @@ function concatenateStrings(value1, value2) {
    *
    * @param {string} str
    * @param {string} value
-   * @return {string}
+   * @return {string} occur
    *
    * @example
    *   'To be or not to be', 'not'  => 'To be or to be'
@@ -149,27 +149,25 @@ function concatenateStrings(value1, value2) {
    */
   function removeFirstOccurrences(str, value)  {
     let index = str.indexOf(value);
-    if (index === -1){
-      return str;
-    }
-    return str.slice(0, index) + (str.slice(index + value.length).trim());
+    let occur = str.slice(0, index) + (str.slice(index + value.length).trim());
+    return occur;
   }
-  let remFirst = removeFirstOccurrences('To be or not to be', 'not');
+  let remFirst = removeFirstOccurrences('I like legends', 'end');
   console.log(remFirst);
   
   /**
    * Remove the first and last angle brackets from tag string
    *
    * @param {string} str
-   * @return {string}
-   *
+   * @return {string} unbrkt
    * @example
    *   '<div>' => 'div'
    *   '<span>' => 'span'
    *   '<a>' => 'a'
    */
   function unbracketTag(str) {
-    return str.slice(1, -1);
+    let unbrkt = str.slice(1, -1);
+    return unbrkt;
   }
   let uncova = unbracketTag('<div>');
   console.log(uncova);
@@ -179,14 +177,15 @@ function concatenateStrings(value1, value2) {
    * Converts all characters of the specified string into the upper case
    *
    * @param {string} str
-   * @return {string}
+   * @return {string} convert
    *
    * @example
    *   'Thunderstruck' => 'THUNDERSTRUCK'
    *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
    */
   function convertToUpperCase(str) {
-    return str.toUpperCase();
+    let convert = str.toUpperCase();
+    return convert;
   }
   let toUpp = convertToUpperCase('Thunderstruck');
   console.log(toUpp);
@@ -195,7 +194,7 @@ function concatenateStrings(value1, value2) {
    * Extracts e-mails from single string with e-mails list delimeted by semicolons
    *
    * @param {string} str
-   * @return {array}
+   * @return {array} ar
    *
    * @example
    *   'angus.young@gmail.com;brian.johnson@hotmail.com;bon.scott@yahoo.com' =>
@@ -203,7 +202,8 @@ function concatenateStrings(value1, value2) {
    *   'info@gmail.com' => ['info@gmail.com']
    */
   function extractEmails(str) {
-    return str.match(/([a-zA-Z0-9._+-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g);
+    let ar = str.split(';');
+    return ar;
   }
   let emails = extractEmails('angus.young@gmail.com;brian.johnson@hotmail.com;bon.scott@yahoo.com');
   console.log(emails);
@@ -214,7 +214,7 @@ function concatenateStrings(value1, value2) {
    *
    * @param {number} width
    * @param {number} height
-   * @return {string}
+   * @return {string} rectangle
    *
    * @example
    *
@@ -237,7 +237,7 @@ function concatenateStrings(value1, value2) {
     const bottomLeft = '└';
     const bottomRight = '┘';
     const horizontalLine = '─';
-    const verticalLine = '|';
+    const verticalLine = '│';
     const space = ' ';
     let rectangle = '';
 
@@ -257,7 +257,7 @@ function concatenateStrings(value1, value2) {
    * See details:  https://en.wikipedia.org/wiki/ROT13
    *
    * @param {string} str
-   * @return {string}
+   * @return {string} encoded
    *
    * @example
    *
@@ -269,8 +269,8 @@ function concatenateStrings(value1, value2) {
    *
    */
   function encodeToRot13(str) {
-    const alphaOriginal = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    const alphaRot13 = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
+    const alphaOriginal = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz !?";
+    const alphaRot13 = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm !?";
     let encoded = "";
 
     for (let i = 0; i < str.length; i++){
@@ -280,7 +280,7 @@ function concatenateStrings(value1, value2) {
     return encoded;
 
   }
-  let rot13 = encodeToRot13("hello");
+  let rot13 = encodeToRot13('Why did the chicken cross the road?');
   console.log(rot13);
   
   /**
@@ -335,16 +335,17 @@ function concatenateStrings(value1, value2) {
    *   'K♠' => 51
    */
   function getCardId(value) {
-    const arr = [
-      'A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
-      'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
-      'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
-      'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'
-    ]
-    const index = arr.indexOf(value);
-    return index;
+    const symbols = "♣♦♥♠";
+    const cat = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+
+    let symbolIndex = symbols.indexOf(value[1]);
+    let catIndex = cat.indexOf(value[0]);
+    let catLen = cat.length;
+    let  position = (symbolIndex * catLen + catIndex);
+    
+    return position;
   }
-  let i = getCardId('K♠');
+  let i = getCardId('2♣');
   console.log(i);
   
   module.exports = {
