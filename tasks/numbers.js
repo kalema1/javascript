@@ -73,7 +73,7 @@ console.log(av);
  * @param {number} x2
  * @param {number} y2
  *
- * @return {number}
+ * @return {number} dist
  *
  * @example:
  *   (0,0) (0,1)    => 1
@@ -99,7 +99,7 @@ console.log(d);
  *
  * @param {number} a
  * @param {number} b
- * @return {number}
+ * @return {number} x
  *
  * @example:
  *   5*x - 10 = 0    => 2
@@ -107,8 +107,14 @@ console.log(d);
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-  throw new Error('Not implemented');
+  let x = (-1 * b)/a;
+  if (x === -0) {
+    return Math.abs(x);
+  }
+  return x;
 }
+let xResults = getLinearEquationRoot(5, 0);
+console.log(xResults);
 
 
 /**
