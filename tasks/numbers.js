@@ -51,7 +51,7 @@ console.log(circleCircum);
  *
  * @param {numder} value1
  * @param {number} value2
- * @return {number}
+ * @return {number} average
  *
  * @example:
  *   5, 5  => 5
@@ -59,8 +59,11 @@ console.log(circleCircum);
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-  throw new Error('Not implemented');
+  let average = (value1 + value2)/2;
+  return average;
 }
+let av = getAverage(-3, 3);
+console.log(av);
 
 /**
  * Returns a distance beetween two points by cartesian coordinates.
