@@ -31,7 +31,7 @@ console.log(area);
  * Returns a circumference of circle given by radius.
  *
  * @param {number} radius
- * @return {number}
+ * @return {number} circum
  *
  * @example:
  *   5    => 31.41592653589793
@@ -39,8 +39,12 @@ console.log(area);
  *   0    => 0
  */
 function getCicleCircumference(radius) {
-  throw new Error('Not implemented');
+  const pi = 3.141592653589793;
+  let circum = (2 * pi * radius);
+  return circum;
 }
+let circleCircum = getCicleCircumference(3.14);
+console.log(circleCircum);
 
 /**
  * Returns an average of two given numbers.
