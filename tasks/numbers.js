@@ -82,8 +82,17 @@ console.log(av);
  *   (4, 2) (1, 6) => 5
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-  throw new Error('Not implemented');
+  let l1 = Math.abs(x1 - x2);
+  let l2 = Math.abs(y1 - y2);
+  let cal1 = Math.pow(l1, 2);
+  let cal2 = Math.pow(l2, 2);
+  let sumCal = cal1 + cal2;
+  let dist = Math.pow(sumCal, 0.5);
+
+  return dist;
 }
+let d = getDistanceBetweenPoints(4, 2, 1, 6);
+console.log(d);
 
 /**
  * Returns a root of linear equation a*x + b = 0 given by coefficients a and b.
