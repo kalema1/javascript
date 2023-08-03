@@ -14,16 +14,18 @@
  *
  * @param {numder} width
  * @param {number} height
- * @return {number}
+ * @return {number} area
  *
  * @example:
  *   5, 10 => 50
  *   5, 5  => 25
  */
 function getRectangleArea(width, height) {
-  throw new Error('Not implemented');
+  let mult = (width * height);
+  return mult;
 }
-
+let area = getRectangleArea(5, 5);
+console.log(area);
 
 /**
  * Returns a circumference of circle given by radius.
