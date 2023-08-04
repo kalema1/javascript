@@ -126,7 +126,7 @@ console.log(xResults);
  * @param {number} y1
  * @param {number} x2
  * @param {number} y2
- * @return {number}
+ * @return {number} angle
  *
  * @example:
  *   (1,0) (0,1)     => π/2
@@ -161,8 +161,11 @@ console.log(ang);
  *     0     => 0
  */
 function getLastDigit(value) {
-  throw new Error('Not implemented');
+  let lastDigit = (value % 10);
+  return lastDigit;
 }
+let ld = getLastDigit(0);
+console.log(ld);
 
 
 /**
