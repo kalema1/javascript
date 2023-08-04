@@ -249,8 +249,18 @@ console.log(round);
  *   17 => true
  */
 function isPrime(n) {
-  throw new Error('Not implemented');
+  if (n <= 1) {
+    return false;
+  }
+  for (let i = 2; i < n; i++) {
+    if (n % i == 0) {
+      return false;
+    }
+  }
+  return true;
 }
+let prime = isPrime(17);
+console.log(prime);
 
 /**
  * Tries to convert value to number and returns it if conversion was successfull;
