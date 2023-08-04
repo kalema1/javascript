@@ -152,7 +152,7 @@ console.log(ang);
  * Returns a last digit of a integer number.
  *
  * @param {number} value
- * @return {number}
+ * @return {number} lastDigit
  *
  * @example:
  *   100     => 0
@@ -172,7 +172,7 @@ console.log(ld);
  * Returns a number by given string representation.
  *
  * @param {string} value
- * @return {number}
+ * @return {number} num
  *
  * @example:
  *    '100'     => 100
@@ -180,8 +180,11 @@ console.log(ld);
  * '-525.5'     => -525.5
  */
 function parseNumberFromString(value) {
-  throw new Error('Not implemented');
+  let num = +value;
+  return num;
 }
+let numb = parseNumberFromString('-525.5');
+console.log(numb);
 
 /**
  * Returns a diagonal length of the rectangular parallelepiped given by its sides a,b,c.
