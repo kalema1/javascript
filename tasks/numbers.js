@@ -192,7 +192,7 @@ console.log(numb);
  * @param {number} a
  * @param {number} b
  * @param {number} c
- * @return {number}
+ * @return {number} diag
  *
  * @example:
  *   1,1,1   => 1.7320508075688772
@@ -200,8 +200,11 @@ console.log(numb);
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a, b, c) {
-  throw new Error('Not implemented');
+  let diag = Math.pow((Math.pow(a, 2) + Math.pow(b, 2) + Math.pow(c, 2)), 0.5);
+  return diag;
 }
+let di = getParallelipidedDiagonal(1, 2, 3);
+console.log(di);
 
 /**
  * Returns the number rounded to specified power of 10.
