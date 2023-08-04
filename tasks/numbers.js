@@ -278,8 +278,16 @@ console.log(prime);
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-  throw new Error('Not implemented');
+  let convert = parseInt(value);
+  if (isNaN(convert)) {
+    return def;
+  }
+  else {
+    return convert;
+  }
 }
+let cov = toNumber(42, 0);
+console.log(cov);
 
 module.exports = {
   getRectangleArea: getRectangleArea,
