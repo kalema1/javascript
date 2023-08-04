@@ -136,8 +136,17 @@ console.log(xResults);
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-  throw new Error('Not implemented');
+  let p1 = (x1 * x2);
+  let p2 = (y1 *y2);
+  let adj = p1 + p2;
+  let mp1 = Math.pow((Math.pow(x1, 2) + Math.pow(y1, 2)), 0.5);
+  let mp2 = Math.pow((Math.pow(x2, 2) + Math.pow(y2, 2)), 0.5);
+  let hyp = (mp1 * mp2);
+  let angle = Math.acos(adj/hyp);
+  return angle;
 }
+let ang = getAngleBetweenVectors(0, 1, 1, 2);
+console.log(ang);
 
 /**
  * Returns a last digit of a integer number.
