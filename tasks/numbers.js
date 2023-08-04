@@ -211,7 +211,7 @@ console.log(di);
  *
  * @param {number} num
  * @param {number} pow
- * @return {number}
+ * @return {number} rd
  *
  * @example:
  *   1234, 0  => 1234
@@ -224,8 +224,12 @@ console.log(di);
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-  throw new Error('Not implemented');
+  let multipler = Math.pow(10, pow);
+  let rd = Math.round(num/multipler) * multipler;
+  return rd;
 }
+let round = roundToPowerOfTen(1234, 3);
+console.log(round);
 
 /**
  * Returns true is the number is prime; otherwise false.
