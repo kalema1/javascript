@@ -39,10 +39,10 @@ function concatenateStrings(value1, value2) {
    *   ''      => 0
    */
   function getStringLength(value) {
-    let strLen = value.length;
-    return strLen;
+    /* let strLen = value.length; */
+    return value.length;
   }
-  let len = getStringLength('aaaaa');
+  let len = getStringLength("aaaaa");
   console.log(len);
   
   /**
@@ -297,14 +297,14 @@ function concatenateStrings(value1, value2) {
    *   isString(new String('test')) => true
    */
   function isString(value) {
-    if (typeof value === 'string'){
+    if (typeof value === 'string' || value instanceof String){
       return true;
     }
     else {
       return false;
     }
   }
-  let s = isString('test');
+  let s = isString(new String('test'));
   console.log(s);
   
   /**
