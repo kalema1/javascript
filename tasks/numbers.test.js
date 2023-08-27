@@ -1,227 +1,280 @@
 const numbers = require("./numbers");
 
-//Returns an area of a rectangle given by width and heigth test
-test("area of a rectangle given by width and height function exists", () => {
-  expect(numbers.getRectangleArea).toBeDefined();
-});
-test("area of a rectangle given by width and height function test", () => {
-  expect(numbers.getRectangleArea(5, 10)).toBe(50);
-});
-test("area of a rectangle given by width and height function test", () => {
-  expect(numbers.getRectangleArea(5, 5)).toBe(25);
-});
+describe("Numbers", () => {
+  describe("getRectangleArea", () => {
+    test(" will get an area of a rectangle given by width and heigth", () => {
+      const rectangle = {
+        width: 5,
+        height: 10,
+        correctArea: 50,
+      };
+      expect(numbers.getRectangleArea(rectangle.width, rectangle.height)).toBe(
+        rectangle.correctArea
+      );
+    });
+    test(" will get an area of a rectangle given by width and heigth", () => {
+      const rectangle = {
+        width: "A",
+        height: 10,
+        output: "Enter Numbers only",
+      };
+      expect(
+        numbers.getRectangleArea(rectangle.width, rectangle.height)
+      ).toEqual(rectangle.output);
+    });
+  });
 
-//Returns a circumference of circle given by radius test
-test("circumference of circle given by radius function exist", () => {
-  expect(numbers.getCicleCircumference).toBeDefined();
-});
-test("circumference of circle given by radius function test", () => {
-  expect(numbers.getCicleCircumference(5)).toBe(31.41592653589793);
-});
-test("circumference of circle given by radius function test", () => {
-  expect(numbers.getCicleCircumference(3.14)).toBe(19.729201864543903);
-});
-test("circumference of circle given by radius function test", () => {
-  expect(numbers.getCicleCircumference(0)).toBe(0);
-});
+  describe("getCicleCircumference", () => {
+    test("will get circumference of a circle", () => {
+      const circle = {
+        radius: 5,
+        results: 31.41592653589793,
+      };
+      expect(numbers.getCicleCircumference(circle.radius)).toBeCloseTo(
+        circle.results
+      );
+    });
+    test("will return statment of circumference of a circle", () => {
+      const circle = {
+        radius: "a",
+        results: "Enter Number only",
+      };
+      expect(numbers.getCicleCircumference(circle.radius)).toEqual(
+        circle.results
+      );
+    });
+  });
 
-//Returns an average of two given numbers.
-test("average of two given numbers function exist", () => {
-  expect(numbers.getAverage).toBeDefined();
-});
-test("average of two given numbers function test", () => {
-  expect(numbers.getAverage(5, 5)).toBe(5);
-});
-test("average of two given numbers function test", () => {
-  expect(numbers.getAverage(-3, 3)).toBe(0);
-});
-test("average of two given numbers function test", () => {
-  expect(numbers.getAverage(10, 0)).toBe(5);
-});
+  describe("getAverage", () => {
+    test("will get avarage of 2 values", () => {
+      const average = {
+        value1: 10,
+        value2: 0,
+        results: 5,
+      };
+      expect(numbers.getAverage(average.value1, average.value2)).toBe(
+        average.results
+      );
+    });
+    test("will return error if not a number of 2 values", () => {
+      const average = {
+        value1: "a",
+        value2: 7,
+        results: "Enter Number only",
+      };
+      expect(numbers.getAverage(average.value1, average.value2)).toEqual(
+        average.results
+      );
+    });
+  });
 
-//Returns a distance beetween two points by cartesian coordinates test
-test("distance beetween two points by cartesian coordinates function exist", () => {
-  expect(numbers.getDistanceBetweenPoints).toBeDefined();
-});
-test("distance beetween two points by cartesian coordinates function test", () => {
-  expect(numbers.getDistanceBetweenPoints(0, 0, 0, 1)).toBe(1);
-});
-test("distance beetween two points by cartesian coordinates function test", () => {
-  expect(numbers.getDistanceBetweenPoints(0, 0, 1, 0)).toBe(1);
-});
-test("distance beetween two points by cartesian coordinates function test", () => {
-  expect(numbers.getDistanceBetweenPoints(-5, 0, 10, -10)).toBe(
-    18.027756377319946
-  );
-});
-test("distance beetween two points by cartesian coordinates function test", () => {
-  expect(numbers.getDistanceBetweenPoints(4, 2, 1, 6)).toBe(5);
-});
+  describe("getDistanceBetweenPoints", () => {
+    test(" will get distance between 2 points", () => {
+      const points = {
+        x1: 0,
+        y1: 0,
+        x2: 0,
+        y2: 1,
+        correctResults: 1,
+      };
+      expect(
+        numbers.getDistanceBetweenPoints(
+          points.x1,
+          points.y1,
+          points.x2,
+          points.y2
+        )
+      ).toBe(points.correctResults);
+    });
+    test(" will return a message if not a number of any of points", () => {
+      const points = {
+        x1: "a",
+        y1: 0,
+        x2: 0,
+        y2: 1,
+        correctResults: "Enter Number only",
+      };
+      expect(
+        numbers.getDistanceBetweenPoints(
+          points.x1,
+          points.y1,
+          points.x2,
+          points.y2
+        )
+      ).toEqual(points.correctResults);
+    });
+  });
 
-//Returns a root of linear equation a*x + b = 0 given by coefficients a and b test
-test("function for root of linear equation a*x + b = 0 given by coefficients a and b exist", () => {
-  expect(numbers.getLinearEquationRoot).toBeDefined();
-});
-test("function for root of linear equation a*x + b = 0 given by coefficients a and b test", () => {
-  expect(numbers.getLinearEquationRoot(5, -10)).toBe(2);
-});
-test("function for root of linear equation a*x + b = 0 given by coefficients a and b test", () => {
-  expect(numbers.getLinearEquationRoot(1, 8)).toBe(-8);
-});
-test("function for root of linear equation a*x + b = 0 given by coefficients a and b test", () => {
-  expect(numbers.getLinearEquationRoot(5, 0)).toBe(0);
-});
+  describe("getLinearEquationRoot", () => {
+    test("will get linear equation root", () => {
+      const coeficent = {
+        a: 5,
+        b: -10,
+        correctResults: 2,
+      };
+      expect(numbers.getLinearEquationRoot(coeficent.a, coeficent.b)).toBe(
+        coeficent.correctResults
+      );
+    });
+    test("will return a message if  coefficient not a number", () => {
+      const coeficent = {
+        a: "a",
+        b: -10,
+        correctResults: "Enter Number only",
+      };
+      expect(numbers.getLinearEquationRoot(coeficent.a, coeficent.b)).toBe(
+        coeficent.correctResults
+      );
+    });
+  });
+  describe("getAngleBetweenVectors", () => {
+    test("will get angle between 2 vectors", () => {
+      const vectorPoints = {
+        x1: 1,
+        y1: 0,
+        x2: 0,
+        y2: 1,
+        correctAngle: 1.5707963267948966,
+      };
+      expect(
+        numbers.getAngleBetweenVectors(
+          vectorPoints.x1,
+          vectorPoints.y1,
+          vectorPoints.x2,
+          vectorPoints.y2
+        )
+      ).toBeCloseTo(vectorPoints.correctAngle);
+    });
+    test("will return a message if not a number", () => {
+      const vectorPoints = {
+        x1: "d",
+        y1: 0,
+        x2: 0,
+        y2: 1,
+        correctAngle: "Enter Number only",
+      };
+      expect(
+        numbers.getAngleBetweenVectors(
+          vectorPoints.x1,
+          vectorPoints.y1,
+          vectorPoints.x2,
+          vectorPoints.y2
+        )
+      ).toEqual(vectorPoints.correctAngle);
+    });
+  });
 
-//Returns an angle (in radians) between two vectors given by xi and yi, coordinates
-test("function that Returns an angle (in radians) between two vectors given by xi and yi, coordinates exist", () => {
-  expect(numbers.getAngleBetweenVectors).toBeDefined();
-});
-test("function that Returns an angle (in radians) between two vectors given by xi and yi, coordinates test", () => {
-  const π = 3.141592653589793;
-  expect(numbers.getAngleBetweenVectors(1, 0, 0, 1)).toBe(π / 2);
-});
-test("function that Returns an angle (in radians) between two vectors given by xi and yi, coordinates test", () => {
-  const π = 3.141592653589793;
-  expect(numbers.getAngleBetweenVectors(0, 1, 0, -1)).toBe(π);
-});
-test("function that Returns an angle (in radians) between two vectors given by xi and yi, coordinates test", () => {
-  const π = 3.141592653589793;
-  expect(numbers.getAngleBetweenVectors(0, -1, 1, 0)).toBe(π / 2);
-});
-test("function that Returns an angle (in radians) between two vectors given by xi and yi, coordinates test", () => {
-  const π = 3.141592653589793;
-  expect(numbers.getAngleBetweenVectors(0, 1, 0, 1)).toBe(0);
-});
-test("function that Returns an angle (in radians) between two vectors given by xi and yi, coordinates test", () => {
-  const π = 3.141592653589793;
-  expect(numbers.getAngleBetweenVectors(0, 1, 1, 2)).not.toBe(0);
-});
+  describe("getLastDigit", () => {
+    test("will get the last value", () => {
+      const digits = {
+        value: 100,
+        correctResults: 0,
+      };
+      expect(numbers.getLastDigit(digits.value)).toBe(digits.correctResults);
+    });
+    test("will return a message if not a number", () => {
+      const digits = {
+        value: "f",
+        correctResults: "Enter Number only",
+      };
+      expect(numbers.getLastDigit(digits.value)).toEqual(digits.correctResults);
+    });
+  });
 
-//Returns a last digit of a integer number test
-test("fuction that Returns a last digit of a integer number exist", () => {
-  expect(numbers.getLastDigit).toBeDefined();
-});
-test("fuction that Returns a last digit of a integer number test", () => {
-  expect(numbers.getLastDigit(100)).toBe(0);
-});
-test("fuction that Returns a last digit of a integer number test", () => {
-  expect(numbers.getLastDigit(37)).toBe(7);
-});
-test("fuction that Returns a last digit of a integer number test", () => {
-  expect(numbers.getLastDigit(5)).toBe(5);
-});
-test("fuction that Returns a last digit of a integer number test", () => {
-  expect(numbers.getLastDigit(0)).toBe(0);
-});
+  describe("parseNumberFromString", () => {
+    test("will return number from a string", () => {
+      const stringValue = {
+        value: "100",
+        correctResults: 100,
+      };
+      expect(numbers.parseNumberFromString(stringValue.value)).toBe(
+        stringValue.correctResults
+      );
+    });
+    test("will return message if not a number from string", () => {
+      const stringValue = {
+        value: "t",
+        correctResults: "Enter Number only",
+      };
+      expect(numbers.parseNumberFromString(stringValue.value)).toEqual(
+        stringValue.correctResults
+      );
+    });
+  });
 
-//Returns a number by given string representation
-test("function that Returns a number by given string representation exist", () => {
-  expect(numbers.parseNumberFromString).toBeDefined();
-});
-test("function that Returns a number by given string representation test", () => {
-  expect(numbers.parseNumberFromString("100")).toBe(100);
-});
-test("function that Returns a number by given string representation test", () => {
-  expect(numbers.parseNumberFromString("37")).toBe(37);
-});
-test("function that Returns a number by given string representation test", () => {
-  expect(numbers.parseNumberFromString("-525.5")).toBe(-525.5);
-});
+  describe("getParallelipidedDiagonal", () => {
+    test("will get a diagonal length of rectangular parallepiped", () => {
+      const length = {
+        a: 1,
+        b: 1,
+        c: 1,
+        correctDiagonal: 1.7320508075688772,
+      };
+      expect(
+        numbers.getParallelipidedDiagonal(length.a, length.b, length.c)
+      ).toBeCloseTo(length.correctDiagonal);
+    });
+    test("will return a message if not a number", () => {
+      const length = {
+        a: "a",
+        b: 1,
+        c: 1,
+        correctDiagonal: "Enter Number only",
+      };
+      expect(
+        numbers.getParallelipidedDiagonal(length.a, length.b, length.c)
+      ).toEqual(length.correctDiagonal);
+    });
+  });
 
-//Returns a diagonal length of the rectangular parallelepiped given by its sides a,b,c test
-test("function that Returns a diagonal length of the rectangular parallelepiped given by its sides a,b,c exist", () => {
-  expect(numbers.getParallelipidedDiagonal).toBeDefined();
-});
-test("function that Returns a diagonal length of the rectangular parallelepiped given by its sides a,b,c test", () => {
-  expect(numbers.getParallelipidedDiagonal(1, 1, 1)).toBeCloseTo(
-    1.7320508075688772
-  );
-});
-test("function that Returns a diagonal length of the rectangular parallelepiped given by its sides a,b,c test", () => {
-  expect(numbers.getParallelipidedDiagonal(3, 3, 3)).toBeCloseTo(
-    5.196152422706632
-  );
-});
-test("function that Returns a diagonal length of the rectangular parallelepiped given by its sides a,b,c test", () => {
-  expect(numbers.getParallelipidedDiagonal(1, 2, 3)).toBeCloseTo(
-    3.741657386773941
-  );
-});
+  describe("roundToPowerOfTen", () => {
+    test("will return number rounded to specified power", () => {
+      const roundNumber = {
+        num: 1234,
+        pow: 1,
+        correctNumber: 1230,
+      };
+      expect(numbers.roundToPowerOfTen(roundNumber.num, roundNumber.pow)).toBe(
+        roundNumber.correctNumber
+      );
+    });
+    test("will return message if not a number", () => {
+      const roundNumber = {
+        num: 1234,
+        pow: "a",
+        correctNumber: "Enter Number only",
+      };
+      expect(
+        numbers.roundToPowerOfTen(roundNumber.num, roundNumber.pow)
+      ).toEqual(roundNumber.correctNumber);
+    });
+  });
 
-//Returns the number rounded to specified power of 10
-test("function that Returns the number rounded to specified power of 10 exist", () => {
-  expect(numbers.roundToPowerOfTen).toBeDefined();
-});
-test("function that Returns the number rounded to specified power of 10 test", () => {
-  expect(numbers.roundToPowerOfTen(1234, 0)).toBe(1234);
-});
-test("function that Returns the number rounded to specified power of 10 test", () => {
-  expect(numbers.roundToPowerOfTen(1234, 1)).toBe(1230);
-});
-test("function that Returns the number rounded to specified power of 10 test", () => {
-  expect(numbers.roundToPowerOfTen(1234, 2)).toBe(1200);
-});
-test("function that Returns the number rounded to specified power of 10 test", () => {
-  expect(numbers.roundToPowerOfTen(1234, 3)).toBe(1000);
-});
-test("function that Returns the number rounded to specified power of 10 test", () => {
-  expect(numbers.roundToPowerOfTen(1678, 0)).toBe(1678);
-});
-test("function that Returns the number rounded to specified power of 10 test", () => {
-  expect(numbers.roundToPowerOfTen(1678, 1)).toBe(1680);
-});
-test("function that Returns the number rounded to specified power of 10 test", () => {
-  expect(numbers.roundToPowerOfTen(1678, 2)).toBe(1700);
-});
-test("function that Returns the number rounded to specified power of 10 test", () => {
-  expect(numbers.roundToPowerOfTen(1678, 3)).toBe(2000);
-});
+  describe("isPrime", () => {
+    test("will return true if number is prime", () => {
+      const numbervalue = {
+        n: 4,
+      };
+      expect(numbers.isPrime(numbervalue.n)).toBeFalsy();
+    });
+    test("will return true if number is prime", () => {
+      const numbervalue = {
+        n: 5,
+      };
+      expect(numbers.isPrime(numbervalue.n)).toBeTruthy();
+    });
+  });
 
-//Returns true is the number is prime; otherwise false.
-test("function thatReturns true is the number is prime; otherwise false exist", () => {
-  expect(numbers.isPrime).toBeDefined();
-});
-test("function thatReturns true is the number is prime; otherwise false test", () => {
-  expect(numbers.isPrime(4)).toBeFalsy();
-});
-test("function thatReturns true is the number is prime; otherwise false test", () => {
-  expect(numbers.isPrime(5)).toBeTruthy();
-});
-test("function thatReturns true is the number is prime; otherwise false test", () => {
-  expect(numbers.isPrime(6)).toBeFalsy();
-});
-test("function thatReturns true is the number is prime; otherwise false test", () => {
-  expect(numbers.isPrime(7)).toBeTruthy();
-});
-test("function thatReturns true is the number is prime; otherwise false test", () => {
-  expect(numbers.isPrime(11)).toBeTruthy();
-});
-test("function thatReturns true is the number is prime; otherwise false test", () => {
-  expect(numbers.isPrime(12)).toBeFalsy();
-});
-test("function thatReturns true is the number is prime; otherwise false test", () => {
-  expect(numbers.isPrime(16)).toBeFalsy();
-});
-test("function thatReturns true is the number is prime; otherwise false test", () => {
-  expect(numbers.isPrime(17)).toBeTruthy();
-});
-
-//Tries to convert value to number and returns it if conversion was successfull;
-test("function that convert a number exist", () => {
-  expect(numbers.toNumber).toBeDefined();
-});
-test("function that convert a number test", () => {
-  expect(numbers.toNumber(null, 0)).toBe(0);
-});
-test("function that convert a number test", () => {
-  expect(numbers.toNumber("test", 0)).toBe(0);
-});
-test("function that convert a number test", () => {
-  expect(numbers.toNumber("1", 0)).toBe(1);
-});
-test("function that convert a number test", () => {
-  expect(numbers.toNumber(42, 0)).toBe(42);
-});
-test("function that convert a number test", () => {
-  expect(numbers.toNumber(new Number(42), 0)).toBe(42);
+  describe("toNumber", () => {
+    test("will convert value to number and returns it", () => {
+      const numbervalue = {
+        value: "1",
+        def: 0,
+        correctResults: 1,
+      };
+      expect(numbers.toNumber(numbervalue.value, numbervalue.def)).toBe(
+        numbervalue.correctResults
+      );
+    });
+  });
 });

@@ -1,4 +1,3 @@
-
 /** ******************************************************************************************
  *                                                                                          *
  * Plese read the following tutorial before implementing tasks:                             *
@@ -7,7 +6,6 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math    *
  *                                                                                          *
  ******************************************************************************************* */
-
 
 /**
  * Returns an area of a rectangle given by width and heigth.
@@ -21,7 +19,11 @@
  *   5, 5  => 25
  */
 function getRectangleArea(width, height) {
-  let mult = (width * height);
+  if (isNaN(width) || isNaN(height)) {
+    return "Enter Numbers only";
+  }
+
+  let mult = width * height;
   return mult;
 }
 let area = getRectangleArea(5, 5);
@@ -40,10 +42,13 @@ console.log(area);
  */
 function getCicleCircumference(radius) {
   const pi = 3.141592653589793;
-  let circum = (2 * pi * radius);
+  let circum = 2 * pi * radius;
+  if (isNaN(radius)) {
+    return "Enter Number only";
+  }
   return circum;
 }
-let circleCircum = getCicleCircumference(3.14);
+let circleCircum = getCicleCircumference(5);
 console.log(circleCircum);
 
 /**
@@ -59,7 +64,10 @@ console.log(circleCircum);
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-  let average = (value1 + value2)/2;
+  if (isNaN(value1) || isNaN(value2)) {
+    return "Enter Number only";
+  }
+  let average = (value1 + value2) / 2;
   return average;
 }
 let av = getAverage(-3, 3);
@@ -82,6 +90,9 @@ console.log(av);
  *   (4, 2) (1, 6) => 5
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
+  if (isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2)) {
+    return "Enter Number only";
+  }
   let l1 = Math.abs(x1 - x2);
   let l2 = Math.abs(y1 - y2);
   let cal1 = Math.pow(l1, 2);
@@ -107,7 +118,10 @@ console.log(d);
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-  let x = (-1 * b)/a;
+  if (isNaN(a) || isNaN(b)) {
+    return "Enter Number only";
+  }
+  let x = (-1 * b) / a;
   if (x === -0) {
     return Math.abs(x);
   }
@@ -115,7 +129,6 @@ function getLinearEquationRoot(a, b) {
 }
 let xResults = getLinearEquationRoot(5, 0);
 console.log(xResults);
-
 
 /**
  * Returns an angle (in radians) between two vectors given by xi and yi, coordinates
@@ -136,16 +149,19 @@ console.log(xResults);
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-  let p1 = (x1 * x2);
-  let p2 = (y1 *y2);
+  if (isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2)) {
+    return "Enter Number only";
+  }
+  let p1 = x1 * x2;
+  let p2 = y1 * y2;
   let adj = p1 + p2;
-  let mp1 = Math.pow((Math.pow(x1, 2) + Math.pow(y1, 2)), 0.5);
-  let mp2 = Math.pow((Math.pow(x2, 2) + Math.pow(y2, 2)), 0.5);
-  let hyp = (mp1 * mp2);
-  let angle = Math.acos(adj/hyp);
+  let mp1 = Math.pow(Math.pow(x1, 2) + Math.pow(y1, 2), 0.5);
+  let mp2 = Math.pow(Math.pow(x2, 2) + Math.pow(y2, 2), 0.5);
+  let hyp = mp1 * mp2;
+  let angle = Math.acos(adj / hyp);
   return angle;
 }
-let ang = getAngleBetweenVectors(0, 1, 1, 2);
+let ang = getAngleBetweenVectors(1, 0, 0, 1);
 console.log(ang);
 
 /**
@@ -161,12 +177,14 @@ console.log(ang);
  *     0     => 0
  */
 function getLastDigit(value) {
-  let lastDigit = (value % 10);
+  if (isNaN(value)) {
+    return "Enter Number only";
+  }
+  let lastDigit = value % 10;
   return lastDigit;
 }
-let ld = getLastDigit(0);
+let ld = getLastDigit(5);
 console.log(ld);
-
 
 /**
  * Returns a number by given string representation.
@@ -180,10 +198,13 @@ console.log(ld);
  * '-525.5'     => -525.5
  */
 function parseNumberFromString(value) {
+  if (isNaN(value)) {
+    return "Enter Number only";
+  }
   let num = +value;
   return num;
 }
-let numb = parseNumberFromString('-525.5');
+let numb = parseNumberFromString("a");
 console.log(numb);
 
 /**
@@ -200,7 +221,10 @@ console.log(numb);
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a, b, c) {
-  let diag = Math.pow((Math.pow(a, 2) + Math.pow(b, 2) + Math.pow(c, 2)), 0.5);
+  if (isNaN(a) || isNaN(b) || isNaN(c)) {
+    return "Enter Number only";
+  }
+  let diag = Math.pow(Math.pow(a, 2) + Math.pow(b, 2) + Math.pow(c, 2), 0.5);
   return diag;
 }
 let di = getParallelipidedDiagonal(1, 2, 3);
@@ -224,8 +248,11 @@ console.log(di);
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
+  if (isNaN(num) || isNaN(pow)) {
+    return "Enter Number only";
+  }
   let multipler = Math.pow(10, pow);
-  let rd = Math.round(num/multipler) * multipler;
+  let rd = Math.round(num / multipler) * multipler;
   return rd;
 }
 let round = roundToPowerOfTen(1234, 3);
@@ -281,8 +308,7 @@ function toNumber(value, def) {
   let convert = parseInt(value);
   if (isNaN(convert)) {
     return def;
-  }
-  else {
+  } else {
     return convert;
   }
 }
@@ -301,5 +327,5 @@ module.exports = {
   getParallelipidedDiagonal: getParallelipidedDiagonal,
   roundToPowerOfTen: roundToPowerOfTen,
   isPrime: isPrime,
-  toNumber: toNumber
+  toNumber: toNumber,
 };

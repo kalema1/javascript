@@ -1,7 +1,5 @@
 const strings = require("./strings");
 
-// concantenate string test
-
 describe("Strings", () => {
   describe("concatenateStrings", () => {
     test("will concatenate 2 strings", () => {
