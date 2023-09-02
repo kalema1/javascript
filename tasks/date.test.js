@@ -43,23 +43,23 @@ describe("date", () => {
   describe("timeSpanToString", () => {
     test("will return the string represention of the timespan between two dates", () => {
       const timeSpan = {
-        startDate: (2000, 1, 1, 10, 0, 0),
-        endDate: (2000, 1, 1, 11, 0, 0),
+        startDate: new Date(2000, 1, 1, 10, 0, 0),
+        endDate: new Date(2000, 1, 1, 11, 0, 0),
         correctResults: "01:00:00.000",
       };
-      expect(
-        date.timeSpanToString(timeSpan.startDate, timeSpan.endDate)
-      ).toEqual(timeSpan.correctResults);
+      expect(date.timeSpanToString(timeSpan.startDate, timeSpan.endDate)).toBe(
+        timeSpan.correctResults
+      );
     });
   });
 
   describe("angleBetweenClockHands", () => {
     test("will return the angle (in radians) between the hands of an analog clock for the specified Greenwich time", () => {
       const dateValue = {
-        date: (2016, 2, 5, 0, 0),
+        date: new Date(Date.UTC(2016, 2, 5, 0, 0)),
         correctOutput: 0,
       };
-      expect(date.angleBetweenClockHands(dateValue.date)).toBe(
+      expect(date.angleBetweenClockHands(dateValue.date)).toEqual(
         dateValue.correctOutput
       );
     });
