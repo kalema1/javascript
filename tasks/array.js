@@ -40,6 +40,11 @@ console.log(findElement(["Ace", 10, true], 10));
 function generateOdds(len) {
   let arr = [];
   let i = 0;
+
+  if (typeof len !== "number" || len === null) {
+    return "Use numbers only";
+  }
+
   for (i; i <= 100; i++) {
     if (i % 2 == 1) {
       arr.push(i);
@@ -117,6 +122,7 @@ function removeFalsyValues(arr) {
   return arr.filter(Boolean);
 }
 console.log(removeFalsyValues([false, 0, NaN, "", undefined]));
+
 /**
  * Returns the array of useprcase strings from the specified array
  *
@@ -180,7 +186,7 @@ console.log(insertItem([1, 3, 4, 5], 2, 1));
  * @param {number} n
  *
  * @example
- *    [ 1, 3, 4, 5 ], 2  => [ 1, 2 ]
+ *    [ 1, 3, 4, 5 ], 2  => [ 1, 3 ]
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'a', 'b', 'c' ]
  */
 function getHead(arr, n) {
@@ -250,6 +256,9 @@ console.log(
 function toArrayOfSquares(arr) {
   let arrSquare = [];
   for (let item of arr) {
+    if (typeof item !== "number") {
+      return "use numbers only";
+    }
     arrSquare.push(item * item);
   }
   return arrSquare;
@@ -275,12 +284,15 @@ function getMovingSum(arr) {
   let i = 0;
   let sum = 0;
   for (i; i < arr.length; i++) {
+    if (typeof arr[i] !== "number") {
+      return "Please provide Numbers Only";
+    }
     sum += arr[i];
     arrMovingSum.push(sum);
   }
   return arrMovingSum;
 }
-console.log(getMovingSum([10, -10, 10, -10, 10]));
+console.log(getMovingSum(["h", -10, 10, -10, 10]));
 
 /**
  * Returns every second item from the specified array:
@@ -414,6 +426,9 @@ function getItemsSum(arr) {
   let i = 0;
   let sum = 0;
   for (i; i < arr.length; i++) {
+    if (typeof arr[i] !== "number") {
+      return "Use Numbers Only";
+    }
     sum += arr[i];
   }
   return sum;
@@ -470,7 +485,7 @@ function findAllOccurences(arr, item) {
 
   return count;
 }
-console.log(findAllOccurences([null, undefined, null], null));
+console.log(findAllOccurences([1, 2, 3, 4, 5], 0));
 
 /**
  * Concatenates all elements from specified array into single string with ',' delimeter
@@ -585,12 +600,15 @@ console.log(getIdentityMatrix(5));
  */
 function getIntervalArray(start, end) {
   let arr = [];
+  if (typeof start !== "number" || typeof end !== "number") {
+    return "Use Numbers Only";
+  }
   for (start; start <= end; start++) {
     arr.push(start);
   }
   return arr;
 }
-console.log(getIntervalArray(-2, 2));
+console.log(getIntervalArray("j", 2));
 
 /**
  * Returns array containing only unique values from the specified array.
