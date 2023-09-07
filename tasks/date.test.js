@@ -10,18 +10,15 @@ const {
 
 describe('03-date-tasks', () => {
   it('parseDataFromRfc2822 should parse rfc2822 string into a date value', () => {
-    expect.toEqual(
-      parseDataFromRfc2822('December 17, 1995 03:24:00').valueOf(),
+    expect(parseDataFromRfc2822('December 17, 1995 03:24:00').valueOf()).toEqual(
       new Date(1995, 11, 17, 3, 24, 0).valueOf()
     );
 
-    expect.toEqual(
-      parseDataFromRfc2822('Tue, 26 Jan 2016 13:48:02 GMT').valueOf(),
+    expect(parseDataFromRfc2822('Tue, 26 Jan 2016 13:48:02 GMT').valueOf()).toEqual(
       1453816082000
     );
 
-    expect.toEqual(
-      parseDataFromRfc2822('Sun, 17 May 1998 03:00:00 GMT+0100').valueOf(),
+    expect(parseDataFromRfc2822('Sun, 17 May 1998 03:00:00 GMT+0100').valueOf()).toEqual(
       895370400000
     );
   });
