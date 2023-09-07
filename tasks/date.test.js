@@ -1,66 +1,136 @@
-const date = require("./date");
+const {
+  parseDataFromRfc2822,
+  parseDataFromIso8601,
+  isLeapYear,
+  timeSpanToString,
+  angleBetweenClockHands
+} = require("./date");
 
-describe("date", () => {
-  describe("parseDataFromRfc2822", () => {
-    test("will Parses a rfc2822 string date representation into date value", () => {
-      const dateValue = {
-        value: "December 17, 1995 03:24:00",
-        correctOutput: 819159840000,
-      };
-      expect(date.parseDataFromRfc2822(dateValue.value)).toEqual(
-        dateValue.correctOutput
+
+
+describe('03-date-tasks', () => {
+  it('parseDataFromRfc2822 should parse rfc2822 string into a date value', () => {
+    expect.toEqual(
+      parseDataFromRfc2822('December 17, 1995 03:24:00').valueOf(),
+      new Date(1995, 11, 17, 3, 24, 0).valueOf()
+    );
+
+    expect.toEqual(
+      parseDataFromRfc2822('Tue, 26 Jan 2016 13:48:02 GMT').valueOf(),
+      1453816082000
+    );
+
+    expect.toEqual(
+      parseDataFromRfc2822('Sun, 17 May 1998 03:00:00 GMT+0100').valueOf(),
+      895370400000
+    );
+  });
+
+
+  it('parseDataFromIso8601 should parse ISO 8601 string into a date value', () => {
+    expect.toEqual(
+      parseDataFromIso8601('2016-01-19T16:07:37+00:00').valueOf(),
+      1453219657000
+    );
+
+    expect.toEqual(
+      parseDataFromIso8601('2016-01-19T08:07:37Z').valueOf(),
+      1453190857000
+    );
+  });
+
+
+  it('isLeapYear should true if specified year is leap', () => {
+    [
+      new Date(2000, 1, 1),
+      new Date(2012, 1, 1)
+    ].forEach(date => {
+      expect(
+        isLeapYear(date) === true,
+        `${date} is a leap year`
+      );
+    });
+
+    [
+      new Date(1900, 1, 1),
+      new Date(2001, 1, 1)
+    ].forEach(date => {
+      expect(
+        isLeapYear(date) === false,
+        `${date} is not a leap year`
       );
     });
   });
 
-  describe("parseDataFromIso8601", () => {
-    test("will Parses a ISO 8601 string date representation into date value", () => {
-      const dateValue = {
-        value: "2016-01-19T16:07:37+00:00",
-        correctOutput: 1453219657000,
-      };
-      expect(date.parseDataFromIso8601(dateValue.value)).toEqual(
-        dateValue.correctOutput
-      );
-    });
-  });
 
-  describe("isLeapYear", () => {
-    test("will return false if specified date is leap year", () => {
-      const datevalue = {
-        date: "1900,1,1",
-      };
-      expect(date.isLeapYear(datevalue.date)).toBeFalsy();
-    });
-    test("will return true if specified date is leap year", () => {
-      const datevalue = {
-        date: "2012,1,1",
-      };
-      expect(date.isLeapYear(datevalue.date)).toBeTruthy();
-    });
-  });
-
-  describe("timeSpanToString", () => {
-    test("will return the string represention of the timespan between two dates", () => {
-      const timeSpan = {
+  it('timeSpanToString should return the string represation of time span between two dates', () => {
+    [
+      {
         startDate: new Date(2000, 1, 1, 10, 0, 0),
         endDate: new Date(2000, 1, 1, 11, 0, 0),
-        correctResults: "01:00:00.000",
-      };
-      expect(date.timeSpanToString(timeSpan.startDate, timeSpan.endDate)).toBe(
-        timeSpan.correctResults
+        expected: '01:00:00.000'
+      }, {
+        startDate: new Date(2000, 1, 1, 10, 0, 0),
+        endDate: new Date(2000, 1, 1, 10, 30, 0),
+        expected: '00:30:00.000'
+      }, {
+        startDate: new Date(2000, 1, 1, 10, 0, 0),
+        endDate: new Date(2000, 1, 1, 10, 0, 20),
+        expected: '00:00:20.000'
+      }, {
+        startDate: new Date(2000, 1, 1, 10, 0, 0),
+        endDate: new Date(2000, 1, 1, 10, 0, 0, 250),
+        expected: '00:00:00.250'
+      }, {
+        startDate: new Date(2000, 1, 1, 10, 0, 0),
+        endDate: new Date(2000, 1, 1, 15, 20, 10, 453),
+        expected: '05:20:10.453'
+      }
+    ].forEach(data => {
+      expect.toEqual(
+        timeSpanToString(data.startDate, data.endDate),
+        data.expected
       );
     });
+
   });
 
-  describe("angleBetweenClockHands", () => {
-    test("will return the angle (in radians) between the hands of an analog clock for the specified Greenwich time", () => {
-      const dateValue = {
-        date: new Date(Date.UTC(2016, 2, 5, 0, 0)),
-        correctOutput: 0,
-      };
-      expect(date.angleBetweenClockHands(dateValue.date)).toEqual(
-        dateValue.correctOutput
+
+  it('angleBetweenClockHands should returns the angle bettween clock hands for specified Greenwich datetime', () => {
+    [
+      {
+        date: Date.UTC(2016, 3, 5, 0, 0),
+        expected: 0
+      }, {
+        date: Date.UTC(2016, 3, 5, 3, 0),
+        expected: Math.PI / 2
+      }, {
+        date: Date.UTC(2016, 3, 5, 15, 0),
+        expected: Math.PI / 2
+      }, {
+        date: Date.UTC(2016, 3, 5, 6, 0),
+        expected: Math.PI
+      }, {
+        date: Date.UTC(2016, 3, 5, 18, 0),
+        expected: Math.PI
+      }, {
+        date: Date.UTC(2016, 3, 5, 9, 0),
+        expected: Math.PI / 2
+      }, {
+        date: Date.UTC(2016, 3, 5, 21, 0),
+        expected: Math.PI / 2
+      }, {
+        date: Date.UTC(2016, 3, 5, 14, 20),
+        expected: 0.8726646259971648
+      }, {
+        date: Date.UTC(2016, 3, 5, 23, 55),
+        expected: 0.4799655442984406
+      }
+    ].forEach(data => {
+      expect.toEqual(
+        angleBetweenClockHands(new Date(data.date)),
+        data.expected,
+        `Incorrect result for angleBetweenClockHands(${new Date(data.date).toUTCString()}):`
       );
     });
   });
