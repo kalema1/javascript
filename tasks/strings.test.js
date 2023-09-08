@@ -248,25 +248,25 @@ describe("Strings", () => {
   });
 
   describe("isString", () => {
-    test("will Return true if the value is string; otherwise false", () => {
+    test("will Return true if the value is string", () => {
       const stringValue = {
         value: "test",
       };
       expect(strings.isString(stringValue.value)).toBeTruthy();
     });
-    test("will Return true if the value is string; otherwise false", () => {
+    test("will Return true if the value is string", () => {
       const stringValue = {
         value: new String("test"),
       };
       expect(strings.isString(stringValue.value)).toBeTruthy();
     });
-    test("will Return true if the value is string; otherwise false", () => {
+    test("will Return false if the value is not  string", () => {
       const stringValue = {
         value: null,
       };
       expect(strings.isString(stringValue.value)).toBeFalsy();
     });
-    test("will Return true if the value is string; otherwise false", () => {
+    test("will Return flas if the value is not string", () => {
       const stringValue = {
         value: [],
       };

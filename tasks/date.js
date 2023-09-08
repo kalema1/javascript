@@ -102,7 +102,7 @@ function timeSpanToString(startDate, endDate) {
 console.log(
   timeSpanToString(
     new Date(2000, 1, 1, 10, 0, 0),
-    new Date(2000, 1, 1, 11, 0, 0)
+    new Date(2000, 1, 1, 15, 20, 10, 453)
   )
 );
 

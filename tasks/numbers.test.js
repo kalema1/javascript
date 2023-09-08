@@ -12,15 +12,10 @@ describe("Numbers", () => {
         rectangle.correctArea
       );
     });
-    test(" will get an area of a rectangle given by width and heigth", () => {
-      const rectangle = {
-        width: "A",
-        height: 10,
-        output: "Enter Numbers only",
-      };
-      expect(
-        numbers.getRectangleArea(rectangle.width, rectangle.height)
-      ).toEqual(rectangle.output);
+    test(" will throw an error if given width and height  is not a number for  an area of a rectangle", () => {
+      expect(() => numbers.getRectangleArea("v", 10)).toThrowError(
+        "Enter Numbers only"
+      );
     });
   });
 

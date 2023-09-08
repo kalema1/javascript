@@ -20,7 +20,8 @@
  */
 function getRectangleArea(width, height) {
   if (isNaN(width) || isNaN(height)) {
-    return "Enter Numbers only";
+    throw new Error("Enter Numbers only");
+    //return "Enter Numbers only";
   }
 
   let mult = width * height;
