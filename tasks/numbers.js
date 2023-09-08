@@ -45,7 +45,7 @@ function getCicleCircumference(radius) {
   const pi = 3.141592653589793;
   let circum = 2 * pi * radius;
   if (isNaN(radius)) {
-    return "Enter Number only";
+    throw new Error("Enter Number only");
   }
   return circum;
 }
@@ -66,7 +66,7 @@ console.log(circleCircum);
  */
 function getAverage(value1, value2) {
   if (isNaN(value1) || isNaN(value2)) {
-    return "Enter Number only";
+    throw new Error("Enter Number only");
   }
   let average = (value1 + value2) / 2;
   return average;
@@ -92,7 +92,7 @@ console.log(av);
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
   if (isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2)) {
-    return "Enter Number only";
+    throw new Error("Enter Number only");
   }
   let l1 = Math.abs(x1 - x2);
   let l2 = Math.abs(y1 - y2);
@@ -120,7 +120,7 @@ console.log(d);
  */
 function getLinearEquationRoot(a, b) {
   if (isNaN(a) || isNaN(b)) {
-    return "Enter Number only";
+    throw new Error("Enter Number only");
   }
   let x = (-1 * b) / a;
   if (x === -0) {
@@ -151,7 +151,7 @@ console.log(xResults);
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
   if (isNaN(x1) || isNaN(y1) || isNaN(x2) || isNaN(y2)) {
-    return "Enter Number only";
+    throw new Error("Enter Number only");
   }
   let p1 = x1 * x2;
   let p2 = y1 * y2;
@@ -179,7 +179,7 @@ console.log(ang);
  */
 function getLastDigit(value) {
   if (isNaN(value)) {
-    return "Enter Number only";
+    throw new Error("Enter Number only");
   }
   let lastDigit = value % 10;
   return lastDigit;
@@ -200,12 +200,12 @@ console.log(ld);
  */
 function parseNumberFromString(value) {
   if (isNaN(value)) {
-    return "Enter Number only";
+    throw new Error("Enter Number only");
   }
   let num = +value;
   return num;
 }
-let numb = parseNumberFromString("a");
+let numb = parseNumberFromString("100");
 console.log(numb);
 
 /**
@@ -223,7 +223,7 @@ console.log(numb);
  */
 function getParallelipidedDiagonal(a, b, c) {
   if (isNaN(a) || isNaN(b) || isNaN(c)) {
-    return "Enter Number only";
+    throw new Error("Enter Number only");
   }
   let diag = Math.pow(Math.pow(a, 2) + Math.pow(b, 2) + Math.pow(c, 2), 0.5);
   return diag;
@@ -250,7 +250,7 @@ console.log(di);
  */
 function roundToPowerOfTen(num, pow) {
   if (isNaN(num) || isNaN(pow)) {
-    return "Enter Number only";
+    throw new Error("Enter Number only");
   }
   let multipler = Math.pow(10, pow);
   let rd = Math.round(num / multipler) * multipler;
@@ -277,6 +277,9 @@ console.log(round);
  *   17 => true
  */
 function isPrime(n) {
+  if (isNaN(n)) {
+    throw new Error("Enter number Only");
+  }
   if (n <= 1) {
     return false;
   }

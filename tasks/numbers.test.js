@@ -29,14 +29,8 @@ describe("Numbers", () => {
         circle.results
       );
     });
-    test("will return statment of circumference of a circle", () => {
-      const circle = {
-        radius: "a",
-        results: "Enter Number only",
-      };
-      expect(numbers.getCicleCircumference(circle.radius)).toEqual(
-        circle.results
-      );
+    test("will throw an error if circumference of a circle is not a number", () => {
+      expect(() => numbers.getCicleCircumference("h")).toThrow();
     });
   });
 
@@ -51,15 +45,14 @@ describe("Numbers", () => {
         average.results
       );
     });
-    test("will return error if not a number of 2 values", () => {
+    test("will throw error if not a number of 2 values", () => {
       const average = {
         value1: "a",
         value2: 7,
-        results: "Enter Number only",
       };
-      expect(numbers.getAverage(average.value1, average.value2)).toEqual(
-        average.results
-      );
+      expect(() =>
+        numbers.getAverage(average.value1, average.value2)
+      ).toThrow();
     });
   });
 
@@ -81,7 +74,7 @@ describe("Numbers", () => {
         )
       ).toBe(points.correctResults);
     });
-    test(" will return a message if not a number of any of points", () => {
+    test(" will throw error if not a number of any of points", () => {
       const points = {
         x1: "a",
         y1: 0,
@@ -89,14 +82,14 @@ describe("Numbers", () => {
         y2: 1,
         correctResults: "Enter Number only",
       };
-      expect(
+      expect(() =>
         numbers.getDistanceBetweenPoints(
           points.x1,
           points.y1,
           points.x2,
           points.y2
         )
-      ).toEqual(points.correctResults);
+      ).toThrow();
     });
   });
 
@@ -111,15 +104,14 @@ describe("Numbers", () => {
         coeficent.correctResults
       );
     });
-    test("will return a message if  coefficient not a number", () => {
+    test("will throw  if  coefficient not a number", () => {
       const coeficent = {
         a: "a",
         b: -10,
-        correctResults: "Enter Number only",
       };
-      expect(numbers.getLinearEquationRoot(coeficent.a, coeficent.b)).toBe(
-        coeficent.correctResults
-      );
+      expect(() =>
+        numbers.getLinearEquationRoot(coeficent.a, coeficent.b)
+      ).toThrow();
     });
   });
   describe("getAngleBetweenVectors", () => {
@@ -140,22 +132,21 @@ describe("Numbers", () => {
         )
       ).toBeCloseTo(vectorPoints.correctAngle);
     });
-    test("will return a message if not a number", () => {
+    test("will throw if not a number", () => {
       const vectorPoints = {
         x1: "d",
         y1: 0,
         x2: 0,
         y2: 1,
-        correctAngle: "Enter Number only",
       };
-      expect(
+      expect(() =>
         numbers.getAngleBetweenVectors(
           vectorPoints.x1,
           vectorPoints.y1,
           vectorPoints.x2,
           vectorPoints.y2
         )
-      ).toEqual(vectorPoints.correctAngle);
+      ).toThrow();
     });
   });
 
@@ -170,9 +161,8 @@ describe("Numbers", () => {
     test("will return a message if not a number", () => {
       const digits = {
         value: "f",
-        correctResults: "Enter Number only",
       };
-      expect(numbers.getLastDigit(digits.value)).toEqual(digits.correctResults);
+      expect(() => numbers.getLastDigit(digits.value)).toThrow();
     });
   });
 
@@ -186,13 +176,12 @@ describe("Numbers", () => {
         stringValue.correctResults
       );
     });
-    test("will return message if not a number from string", () => {
+    test("will throw if not a number from string", () => {
       const stringValue = {
-        value: "t",
-        correctResults: "Enter Number only",
+        value: "gg",
       };
-      expect(numbers.parseNumberFromString(stringValue.value)).toEqual(
-        stringValue.correctResults
+      expect(() => numbers.parseNumberFromString(stringValue.value)).toThrow(
+        new Error("Enter Number only")
       );
     });
   });
@@ -209,16 +198,15 @@ describe("Numbers", () => {
         numbers.getParallelipidedDiagonal(length.a, length.b, length.c)
       ).toBeCloseTo(length.correctDiagonal);
     });
-    test("will return a message if not a number", () => {
+    test("will throw an error if not a number", () => {
       const length = {
         a: "a",
         b: 1,
         c: 1,
-        correctDiagonal: "Enter Number only",
       };
-      expect(
+      expect(() =>
         numbers.getParallelipidedDiagonal(length.a, length.b, length.c)
-      ).toEqual(length.correctDiagonal);
+      ).toThrow();
     });
   });
 
@@ -237,16 +225,15 @@ describe("Numbers", () => {
       const roundNumber = {
         num: 1234,
         pow: "a",
-        correctNumber: "Enter Number only",
       };
-      expect(
+      expect(() =>
         numbers.roundToPowerOfTen(roundNumber.num, roundNumber.pow)
-      ).toEqual(roundNumber.correctNumber);
+      ).toThrow();
     });
   });
 
   describe("isPrime", () => {
-    test("will return true if number is prime", () => {
+    test("will return false if number is not prime", () => {
       const numbervalue = {
         n: 4,
       };
@@ -257,6 +244,12 @@ describe("Numbers", () => {
         n: 5,
       };
       expect(numbers.isPrime(numbervalue.n)).toBeTruthy();
+    });
+    test("will throw if  not number", () => {
+      const numbervalue = {
+        n: "bb",
+      };
+      expect(() => numbers.isPrime(numbervalue.n)).toThrow();
     });
   });
 
