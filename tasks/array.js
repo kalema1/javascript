@@ -427,7 +427,7 @@ function getItemsSum(arr) {
   let sum = 0;
   for (i; i < arr.length; i++) {
     if (typeof arr[i] !== "number") {
-      return "Use Numbers Only";
+      throw new Error("Use Numbers Only");
     }
     sum += arr[i];
   }
@@ -600,15 +600,15 @@ console.log(getIdentityMatrix(5));
  */
 function getIntervalArray(start, end) {
   let arr = [];
-  if (typeof start !== "number" || typeof end !== "number") {
-    return "Use Numbers Only";
+  if (isNaN(start) || isNaN(end)) {
+    throw new Error("Use Numbers Only");
   }
   for (start; start <= end; start++) {
     arr.push(start);
   }
   return arr;
 }
-console.log(getIntervalArray("j", 2));
+console.log(getIntervalArray(-2, 2));
 
 /**
  * Returns array containing only unique values from the specified array.

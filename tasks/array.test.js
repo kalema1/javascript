@@ -298,14 +298,11 @@ describe("array", () => {
         itemSumArrayValue.correctResults
       );
     });
-    test("will return a message if provided element is not number", () => {
+    test("will throw if provided element is not number", () => {
       const itemSumArrayValue = {
         arr: [1, "a", 3],
-        correctResults: "Use Numbers Only",
       };
-      expect(array.getItemsSum(itemSumArrayValue.arr)).toEqual(
-        itemSumArrayValue.correctResults
-      );
+      expect(() => array.getItemsSum(itemSumArrayValue.arr)).toThrow();
     });
   });
 
@@ -398,15 +395,14 @@ describe("array", () => {
         array.getIntervalArray(intervalArray.start, intervalArray.end)
       ).toEqual(intervalArray.correctArray);
     });
-    test("will return message if start or end value is ont number", () => {
+    test("will throw if start or end value is ont number", () => {
       const intervalArray = {
         start: "j",
         end: 5,
-        correctArray: "Use Numbers Only",
       };
-      expect(
+      expect(() =>
         array.getIntervalArray(intervalArray.start, intervalArray.end)
-      ).toEqual(intervalArray.correctArray);
+      ).toThrow();
     });
   });
 
