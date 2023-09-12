@@ -30,14 +30,14 @@ function getFizzBuzz(num) {
   if (isNaN(num)) {
     throw new Error("Enter Number");
   }
+  if (num % 3 === 0 && num % 5 === 0) {
+    return "FizzBuzz";
+  }
   if (num % 3 === 0) {
     return "Fizz";
   }
   if (num % 5 === 0) {
     return "Buzz";
-  }
-  if (num % 3 === 0 && num % 5 === 0) {
-    return "FizzBuzz";
   } else {
     return num;
   }
@@ -114,6 +114,9 @@ console.log(getSumBetweenNumbers(5, 10));
  *   10,10,10 =>  true
  */
 function isTriangle(a, b, c) {
+  if (isNaN(a) || isNaN(b) || isNaN(c)) {
+    throw new Error("Use Numbers Only");
+  }
   if (a <= 0 || b <= 0 || c <= 0) {
     return false;
   }
@@ -330,6 +333,9 @@ console.log(reverseString("abracadabra"));
  *   34143 => 34143
  */
 function reverseInteger(num) {
+  if (isNaN(num)) {
+    throw new Error("Use Numbers Only");
+  }
   return Number(num.toString().split("").reverse().join(""));
 }
 console.log(reverseInteger(12345));
@@ -429,7 +435,7 @@ console.log(getDigitalRoot(165536));
  *   '' => true
  *   '[]'  => true
  *   '{}'  => true
- *   '()   => true
+ *   '()'   => true
  *   '[[]' => false
  *   ']['  => false
  *   '[[][][[]]]' => true
@@ -497,48 +503,48 @@ console.log(isBracketsBalanced("[[][]]["));
  *
  */
 function timespanToHumanString(startDate, endDate) {
-  const MILLIS_IN_SECOND = 1000;
-  const MILLIS_IN_MINUTE = 60 * MILLIS_IN_SECOND;
-  const MILLIS_IN_HOUR = 60 * MILLIS_IN_MINUTE;
-  const MILLIS_IN_DAY = 24 * MILLIS_IN_HOUR;
-  const MILLIS_IN_MONTH = 30 * MILLIS_IN_DAY;
-  const MILLIS_IN_YEAR = 365 * MILLIS_IN_DAY;
+  const ONE_SECOND = 1000;
+  const ONE_MINUTE = 60 * ONE_SECOND;
+  const ONE_HOUR = 60 * ONE_MINUTE;
+  const ONE_DAY = 24 * ONE_HOUR;
+  const ONE_MONTH = 30 * ONE_DAY;
+  const ONE_YEAR = 365 * ONE_DAY;
 
   const timeDifference = endDate - startDate;
 
-  if (timeDifference <= 45 * MILLIS_IN_SECOND) {
+  if (timeDifference <= 45 * ONE_SECOND) {
     return "a few seconds ago";
-  } else if (timeDifference <= 90 * MILLIS_IN_SECOND) {
+  } else if (timeDifference <= 90 * ONE_SECOND) {
     return "a minute ago";
-  } else if (timeDifference <= 45 * MILLIS_IN_MINUTE) {
-    const minutesAgo = Math.floor(timeDifference / MILLIS_IN_MINUTE);
+  } else if (timeDifference <= 45 * ONE_MINUTE) {
+    const minutesAgo = Math.floor(timeDifference / ONE_MINUTE);
     return `${minutesAgo} minute${minutesAgo > 1 ? "s" : ""} ago`;
-  } else if (timeDifference <= 90 * MILLIS_IN_MINUTE) {
+  } else if (timeDifference <= 90 * ONE_MINUTE) {
     return "an hour ago";
-  } else if (timeDifference <= 22 * MILLIS_IN_HOUR) {
-    const hoursAgo = Math.floor(timeDifference / MILLIS_IN_HOUR);
+  } else if (timeDifference <= 22 * ONE_HOUR) {
+    const hoursAgo = Math.floor(timeDifference / ONE_HOUR);
     return `${hoursAgo} hour${hoursAgo > 1 ? "s" : ""} ago`;
-  } else if (timeDifference <= 36 * MILLIS_IN_HOUR) {
+  } else if (timeDifference <= 36 * ONE_HOUR) {
     return "a day ago";
-  } else if (timeDifference <= 25 * MILLIS_IN_DAY) {
-    const daysAgo = Math.floor(timeDifference / MILLIS_IN_DAY);
+  } else if (timeDifference <= 25 * ONE_DAY) {
+    const daysAgo = Math.floor(timeDifference / ONE_DAY);
     return `${daysAgo} day${daysAgo > 1 ? "s" : ""} ago`;
-  } else if (timeDifference <= 45 * MILLIS_IN_DAY) {
+  } else if (timeDifference <= 45 * ONE_DAY) {
     return "a month ago";
-  } else if (timeDifference <= 345 * MILLIS_IN_DAY) {
-    const monthsAgo = Math.floor(timeDifference / MILLIS_IN_MONTH);
+  } else if (timeDifference <= 345 * ONE_DAY) {
+    const monthsAgo = Math.floor(timeDifference / ONE_MONTH);
     return `${monthsAgo} month${monthsAgo > 1 ? "s" : ""} ago`;
-  } else if (timeDifference <= 545 * MILLIS_IN_DAY) {
+  } else if (timeDifference <= 545 * ONE_DAY) {
     return "a year ago";
   } else {
-    const yearsAgo = Math.floor(timeDifference / MILLIS_IN_YEAR);
+    const yearsAgo = Math.floor(timeDifference / ONE_YEAR);
     return `${yearsAgo} year${yearsAgo > 1 ? "s" : ""} ago`;
   }
 }
 console.log(
   timespanToHumanString(
     new Date("2000-01-01 01:00:00.100"),
-    new Date("2015-01-02 03:00:05.000")
+    new Date("2000-01-01 01:06:05.000")
   )
 );
 
