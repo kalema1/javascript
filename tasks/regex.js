@@ -30,6 +30,7 @@
 function getRegexForGuid() {
   return /\{[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}\}/;
 }
+console.log(getRegexForGuid().test("{D44EF4F4-280B47E5-91C7-261222A59621}"));
 
 /**
  * Returns the regexp that matches all the strings from first column
@@ -49,7 +50,7 @@ function getRegexForGuid() {
  *
  */
 function getRegexForPitSpot() {
-  return /^(?!.*\b(Pot|peat|part)\b).{1,12}$/;
+  return /^(?!.*\b(pt|Pot|peat|part)\b).{1,12}$/;
 }
 
 /**
@@ -109,28 +110,11 @@ function getRegexForSSN() {
  *   'Pa55'.match(validator) => false
  */
 function getPasswordValidator(minLength) {
-  // Ensure the password has at least 'minLength' characters.
-  const minLengthRegex = `.{${minLength},}`;
+  // Construct the regex pattern based on the criteria
+  const pattern = `^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{${minLength},}$`;
 
-  // Ensure the password contains at least one lowercase letter.
-  const lowercaseRegex = /[a-z]/;
-
-  // Ensure the password contains at least one uppercase letter.
-  const uppercaseRegex = /[A-Z]/;
-
-  // Ensure the password contains at least one digit.
-  const digitRegex = /[0-9]/;
-
-  // Ensure the password only consists of alphanumeric characters.
-  const alphanumericRegex = /^[a-zA-Z0-9]+$/;
-
-  // Combine all the conditions into a single regular expression.
-  const passwordRegex = new RegExp(
-    `^(?=${minLengthRegex})(?=.*${lowercaseRegex})(?=.*${uppercaseRegex})(?=.*${digitRegex})(?=${alphanumericRegex})$`
-  );
-
-  return passwordRegex;
-  /* return `/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])[a-zA-Z0-9]{${minLength},}$/`; */
+  // Return the regex object
+  return new RegExp(pattern);
 }
 const validator = getPasswordValidator(6);
 console.log(validator.test("password"));
