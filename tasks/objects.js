@@ -161,7 +161,7 @@ const cssSelectorBuilder = {
 };
 const builder = cssSelectorBuilder;
 console.log(
-  builder.element("div").class("container").class("clickable").stringify()
+  builder.id("main").class("container").class("editable").stringify()
 );
 
 module.exports = {
