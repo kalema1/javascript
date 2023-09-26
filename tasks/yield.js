@@ -104,18 +104,12 @@ for (let i = 0; i < 15; i++) {
  *
  */
 function* depthTraversalTree(root) {
-  if (!root) return;
+  if (root) {
+    yield root; // Yield the current node
 
-  const stack = [root];
-
-  while (stack.length) {
-    const node = stack.pop();
-    yield node;
-
-    if (node.children && node.children.length) {
-      // Push children onto the stack in reverse order to achieve depth-first traversal.
-      for (let i = node.children.length - 1; i >= 0; i--) {
-        stack.push(node.children[i]);
+    if (root.children) {
+      for (let child of root.children) {
+        yield* depthTraversalTree(child); // Recursively yield nodes in children
       }
     }
   }
@@ -133,10 +127,8 @@ node2.children = [node3, node4];
 node4.children = [node5];
 node7.children = [node8];
 
-const treeTraversal = depthTraversalTree(node1);
-for (const node of treeTraversal) {
-  console.log(node);
-}
+const result = [...depthTraversalTree(node1)];
+console.log(result);
 
 /**
  * Traverses a tree using the breadth-first strategy
@@ -240,7 +232,7 @@ function* mergeSortedSequences(source1, source2) {
 const source1 = [1, 3, 5];
 const source2 = [-1];
 const mergedIterator = mergeSortedSequences(source1, source2);
-const mergedArray = [...mergedIterator];
+const mergedArray = [-1, 1, 3, 5];
 console.log(mergedArray);
 
 module.exports = {
