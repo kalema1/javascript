@@ -31,19 +31,22 @@
  */
 function* get99BottlesOfBeer() {
   for (let bottles = 99; bottles > 0; bottles--) {
-    yield `${bottles} bottles of beer on the wall, ${bottles} bottle${
+    yield `${bottles} bottle${
+      bottles === 1 ? "" : "s"
+    } of beer on the wall, ${bottles} bottle${
       bottles === 1 ? "" : "s"
     } of beer.`;
     if (bottles === 1) {
       yield `Take one down and pass it around, no more bottles of beer on the wall.`;
-      yield `No more bottles of beer on the wall, no more bottles of beer.`;
-      yield `Go to the store and buy some more, 99 bottles of beer on the wall.`;
     } else {
       yield `Take one down and pass it around, ${bottles - 1} bottle${
         bottles === 2 ? "" : "s"
       } of beer on the wall.`;
     }
   }
+
+  yield `No more bottles of beer on the wall, no more bottles of beer.`;
+  yield `Go to the store and buy some more, 99 bottles of beer on the wall.`;
 }
 const beerIterator = get99BottlesOfBeer();
 for (const line of beerIterator) {
@@ -232,7 +235,7 @@ function* mergeSortedSequences(source1, source2) {
 const source1 = [1, 3, 5];
 const source2 = [-1];
 const mergedIterator = mergeSortedSequences(source1, source2);
-const mergedArray = [-1, 1, 3, 5];
+const mergedArray = [...mergedIterator];
 console.log(mergedArray);
 
 module.exports = {
