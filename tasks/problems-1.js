@@ -83,7 +83,39 @@ console.log(compass);
  *   'nothing to do' => 'nothing to do'
  */
 function* expandBraces(str) {
-  throw new Error("Not implemented");
+  function* helper(current, index) {
+    if (index === str.length) {
+      yield current;
+      return;
+    }
+
+    if (str[index] === "{") {
+      let closingIndex = index + 1;
+      let openBraces = 1;
+      while (closingIndex < str.length) {
+        if (str[closingIndex] === "{") {
+          openBraces++;
+        } else if (str[closingIndex] === "}" && openBraces === 1) {
+          const alternatives = str.slice(index + 1, closingIndex).split(",");
+          for (const alternative of alternatives) {
+            yield* helper(current + alternative, closingIndex + 1);
+          }
+          return;
+        } else if (str[closingIndex] === "}") {
+          openBraces--;
+        }
+        closingIndex++;
+      }
+    } else {
+      yield* helper(current + str[index], index + 1);
+    }
+  }
+
+  yield* helper("", 0);
+}
+const input1 = "It{{em,alic}iz,erat}e{d,}, please.";
+for (const expansion of expandBraces(input1)) {
+  console.log(expansion);
 }
 
 /**
@@ -115,8 +147,47 @@ function* expandBraces(str) {
  *
  */
 function getZigZagMatrix(n) {
-  throw new Error("Not implemented");
+  if (n <= 0) return [];
+
+  // Initialize the matrix with zeros
+  const matrix = Array.from({ length: n }, () => Array(n).fill(0));
+
+  let row = 0;
+  let col = 0;
+  let value = 0;
+
+  for (let i = 0; i < n * n; i++) {
+    matrix[row][col] = value;
+    value++;
+
+    // Check if we need to move up or down the zigzag path
+    if ((row + col) % 2 === 0) {
+      if (col < n - 1) {
+        col++;
+      } else {
+        row += 2;
+      }
+
+      if (row > 0) {
+        row--;
+      }
+    } else {
+      if (row < n - 1) {
+        row++;
+      } else {
+        col += 2;
+      }
+
+      if (col > 0) {
+        col--;
+      }
+    }
+  }
+
+  return matrix;
 }
+const res = getZigZagMatrix(4);
+console.log(res);
 
 /**
  * Returns true if specified subset of dominoes can be placed in a row accroding to the game rules.
@@ -140,8 +211,86 @@ function getZigZagMatrix(n) {
  *
  */
 function canDominoesMakeRow(dominoes) {
-  throw new Error("Not implemented");
+  if (dominoes.length === 0) {
+    return true; // An empty set is always valid
+  }
+
+  const graph = new Map();
+
+  // Build a graph where each domino number is a node and edges represent connections
+  for (const domino of dominoes) {
+    const [num1, num2] = domino;
+
+    if (!graph.has(num1)) {
+      graph.set(num1, new Set());
+    }
+    if (!graph.has(num2)) {
+      graph.set(num2, new Set());
+    }
+
+    graph.get(num1).add(num2);
+    graph.get(num2).add(num1);
+  }
+
+  // Use depth-first search (DFS) to find a valid domino chain
+  const visited = new Set();
+  const stack = [dominoes[0][0]];
+
+  while (stack.length > 0) {
+    const current = stack.pop();
+    visited.add(current);
+
+    if (graph.has(current)) {
+      for (const neighbor of graph.get(current)) {
+        if (!visited.has(neighbor)) {
+          stack.push(neighbor);
+        }
+      }
+    }
+  }
+
+  // Check if all nodes were visited
+  return graph.size === visited.size;
 }
+console.log(
+  canDominoesMakeRow([
+    [0, 1],
+    [1, 1],
+  ])
+);
+console.log(
+  canDominoesMakeRow([
+    [1, 1],
+    [2, 2],
+    [1, 5],
+    [5, 6],
+    [6, 3],
+  ])
+);
+console.log(
+  canDominoesMakeRow([
+    [1, 3],
+    [2, 3],
+    [1, 4],
+    [2, 4],
+    [1, 5],
+    [2, 5],
+  ])
+);
+console.log(
+  canDominoesMakeRow([
+    [0, 0],
+    [0, 1],
+    [1, 1],
+    [0, 2],
+    [1, 2],
+    [2, 2],
+    [0, 3],
+    [1, 3],
+    [2, 3],
+    [3, 3],
+  ])
+);
 
 /**
  * Returns the string expression of the specified ordered list of integers.
@@ -165,8 +314,40 @@ function canDominoesMakeRow(dominoes) {
  * [ 1, 2, 4, 5]          => '1,2,4,5'
  */
 function extractRanges(nums) {
-  throw new Error("Not implemented");
+  if (nums.length === 0) {
+    return "";
+  }
+
+  const ranges = [];
+  let currentRange = [nums[0]];
+
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] === nums[i - 1] + 1) {
+      currentRange.push(nums[i]);
+    } else {
+      if (currentRange.length > 2) {
+        ranges.push(
+          `${currentRange[0]}-${currentRange[currentRange.length - 1]}`
+        );
+      } else {
+        ranges.push(currentRange.join(","));
+      }
+      currentRange = [nums[i]];
+    }
+  }
+
+  if (currentRange.length > 2) {
+    ranges.push(`${currentRange[0]}-${currentRange[currentRange.length - 1]}`);
+  } else {
+    ranges.push(currentRange.join(","));
+  }
+
+  return ranges.join(",");
 }
+console.log(extractRanges([0, 1, 2, 3, 4, 5]));
+console.log(extractRanges([1, 4, 5]));
+console.log(extractRanges([0, 1, 2, 5, 7, 8, 9]));
+console.log(extractRanges([1, 2, 4, 5]));
 
 module.exports = {
   createCompassPoints: createCompassPoints,
