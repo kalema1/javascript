@@ -113,7 +113,7 @@ function* expandBraces(str) {
 
   yield* helper("", 0);
 }
-const input1 = "It{{em,alic}iz,erat}e{d,}, please.";
+const input1 = "thumbnail.{png,jp{e,}g}";
 for (const expansion of expandBraces(input1)) {
   console.log(expansion);
 }
