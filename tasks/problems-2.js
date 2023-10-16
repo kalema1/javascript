@@ -101,7 +101,34 @@ console.log(parseBankAccount(bankAccount1));
  *      'characters.'
  */
 function* wrapText(text, columns) {
-  throw new Error("Not implemented");
+  if (columns <= 0) {
+    yield text;
+    return;
+  }
+
+  const words = text.split(" ");
+  let line = words[0];
+
+  for (let i = 1; i < words.length; i++) {
+    const word = words[i];
+
+    if (line.length + 1 + word.length <= columns) {
+      line += " " + word;
+    } else {
+      yield line;
+      line = word;
+    }
+  }
+
+  if (line.length > 0) {
+    yield line;
+  }
+}
+const text2 =
+  "The String global object is a constructor for strings, or a sequence of characters.";
+const columns2 = 12;
+for (const line of wrapText(text2, columns2)) {
+  console.log(line);
 }
 
 /**
