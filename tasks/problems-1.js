@@ -7,7 +7,7 @@
  *
  * Example of return :
  *  [
- *     { abbreviation : 'N',     azimuth : 0.00 ,
+ *     { abbreviation : 'N',     azimuth : 0.00 },
  *     { abbreviation : 'NbE',   azimuth : 11.25 },
  *     { abbreviation : 'NNE',   azimuth : 22.50 },
  *       ...
