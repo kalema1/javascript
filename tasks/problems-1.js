@@ -83,39 +83,58 @@ console.log(compass);
  *   'nothing to do' => 'nothing to do'
  */
 function* expandBraces(str) {
-  function* helper(current, index) {
-    if (index === str.length) {
-      yield current;
-      return;
-    }
+  yield* expandR("", str, "");
+}
 
-    if (str[index] === "{") {
-      let closingIndex = index + 1;
-      let openBraces = 1;
-      while (closingIndex < str.length) {
-        if (str[closingIndex] === "{") {
-          openBraces++;
-        } else if (str[closingIndex] === "}" && openBraces === 1) {
-          const alternatives = str.slice(index + 1, closingIndex).split(",");
-          for (const alternative of alternatives) {
-            yield* helper(current + alternative, closingIndex + 1);
-          }
-          return;
-        } else if (str[closingIndex] === "}") {
-          openBraces--;
-        }
-        closingIndex++;
+function* expandR(pre, s, suf) {
+  let i1 = -1;
+  let i2 = 0;
+  let noEscape = s.replace(/(\\\\\\|\\\\[,}{])/g, "  ");
+  let sb = null;
+
+  outer: while ((i1 = noEscape.indexOf("{", i1 + 1)) !== -1) {
+    i2 = i1 + 1;
+    sb = s.slice();
+    let depth = 1;
+
+    for (; i2 < s.length && depth > 0; i2++) {
+      let c = noEscape[i2];
+      depth = c === "{" ? depth + 1 : depth;
+      depth = c === "}" ? depth - 1 : depth;
+
+      if (c === "," && depth === 1) {
+        sb = sb.substring(0, i2) + "\u0000" + sb.substring(i2 + 1);
+      } else if (c === "}" && depth === 0 && sb.indexOf("\u0000") !== -1) {
+        break outer;
       }
-    } else {
-      yield* helper(current + str[index], index + 1);
     }
   }
 
-  yield* helper("", 0);
+  if (i1 === -1) {
+    if (suf.length > 0) {
+      yield* expandR(pre + s, suf, "");
+    } else {
+      yield pre + s + suf;
+    }
+  } else {
+    for (let m of sb.substring(i1 + 1, i2).split("\u0000")) {
+      yield* expandR(pre + s.substring(0, i1), m, s.substring(i2 + 1) + suf);
+    }
+  }
 }
-const input1 = "thumbnail.{png,jp{e,}g}";
-for (const expansion of expandBraces(input1)) {
-  console.log(expansion);
+
+const expressions = [
+  "It{{em,alic}iz,erat}e{d,}, please.",
+  "~/{Downloads,Pictures}/*.{jpg,gif,png}",
+  "thumbnail.{png,jp{e,}g}",
+  "nothing to do",
+];
+
+for (let s of expressions) {
+  console.log();
+  for (let result of expandBraces(s)) {
+    console.log(result);
+  }
 }
 
 /**

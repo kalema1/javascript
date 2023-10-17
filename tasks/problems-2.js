@@ -51,7 +51,7 @@ function parseBankAccount(bankAccount) {
     "| |  | _| _||_||_ |_   ||_||_|",
     "|_|  ||_  _|  | _||_|  ||_| _|",
   ];
-  // Split the input string into lines and remove any leading/trailing spaces
+  // Split the input string into lines
   const query = bankAccount.split("\n");
 
   const digits = splitToDigits(query);
@@ -227,7 +227,7 @@ console.log(getPokerHandRank(hand2));
  * vertical bars | and whitespaces.
  * The task is to break the figure in the rectangles it is made of.
  *
- * NOTE: The order of rectanles does not matter.
+ * NOTE: The order of rectangles does not matter.
  *
  * @param {string} figure
  * @return {Iterable.<string>} decomposition to basic parts
@@ -253,7 +253,64 @@ console.log(getPokerHandRank(hand2));
  *    '+-------------+\n'
  */
 function* getFigureRectangles(figure) {
-  throw new Error("Not implemented");
+  const rows = figure.split("\n"); // Split the figure into rows
+  const height = rows.length;
+  const width = rows[0].length;
+
+  for (let row = 0; row < height; row++) {
+    for (let col = 0; col < width; col++) {
+      if (rows[row][col] === "+") {
+        // Found the top-left corner of a rectangle
+        for (let i = row + 1; i < height; i++) {
+          for (let j = col + 1; j < width; j++) {
+            if (rows[i][j] === "+") {
+              // Found the bottom-right corner of a rectangle
+              // Extract the rectangle by its coordinates
+              const rectangle = rows
+                .slice(row, i + 1)
+                .map((line) => line.slice(col, j + 1))
+                .join("\n");
+              yield rectangle;
+
+              // Clear the rectangle in the figure
+              for (let r = row; r <= i; r++) {
+                for (let c = col; c <= j; c++) {
+                  rows[r] = rows[r].slice(0, c) + " " + rows[r].slice(c + 1);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+const figure1 =
+  "+------------+\n" +
+  "|            |\n" +
+  "|            |\n" +
+  "|            |\n" +
+  "+------+-----+\n" +
+  "|            |\n" +
+  "|            |\n" +
+  "|            |\n" +
+  "+------+-----+\n";
+
+const figure2 =
+  "   +-----+     \n" +
+  "   |     |     \n" +
+  "+--+-----+----+\n" +
+  "|             |\n" +
+  "|             |\n" +
+  "|             |\n" +
+  "+-------------+\n";
+
+/* for (const rectangle of getFigureRectangles(figure1)) {
+  console.log(rectangle);
+} */
+for (const rectangle of getFigureRectangles(figure2)) {
+  console.log(rectangle);
 }
 
 module.exports = {
