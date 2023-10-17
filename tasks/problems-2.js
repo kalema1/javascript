@@ -164,9 +164,63 @@ const PokerRank = {
 };
 
 function getPokerHandRank(hand) {
-  throw new Error("Not implemented");
+  const order = "23456789TJQKA";
+  const values = [];
+  const suits = new Set();
+
+  for (const card of hand) {
+    const value = card.slice(0, -1); // Extract the card value (excluding the suit)
+    const suit = card.slice(-1); // Extract the card suit
+
+    values.push(value);
+    suits.add(suit);
+  }
+  values
+    .map((a) => String.fromCharCode([77 - order.indexOf(a[0])]))
+    .sort((a, b) => a.localeCompare(b));
+
+  const isFlush = suits.size === 1;
+
+  const first = values[0].charCodeAt(0);
+
+  const isStraight = values.every(
+    (value, index) => value.charCodeAt(0) - first === index
+  );
+
+  const valueCounts = {};
+  for (const value of values) {
+    valueCounts[value] = (valueCounts[value] || 0) + 1;
+  }
+
+  const countValues = Object.values(valueCounts);
+  const maxCount = Math.max(...countValues);
+
+  if (isFlush && isStraight) {
+    return PokerRank.StraightFlush;
+  } else if (maxCount === 4) {
+    return PokerRank.FourOfKind;
+  } else if (maxCount === 3 && countValues.includes(2)) {
+    return PokerRank.FullHouse;
+  } else if (isFlush) {
+    return PokerRank.Flush;
+  } else if (isStraight) {
+    return PokerRank.Straight;
+  } else if (maxCount === 3) {
+    return PokerRank.ThreeOfKind;
+  } else if (maxCount === 2 && countValues.includes(2)) {
+    return PokerRank.TwoPairs;
+  } else if (maxCount === 2) {
+    return PokerRank.OnePair;
+  } else {
+    return PokerRank.HighCard;
+  }
 }
 
+const hand1 = ["4♥", "5♥", "6♥", "7♥", "8♥"];
+console.log(getPokerHandRank(hand1));
+
+const hand2 = ["A♠", "4♠", "3♠", "5♠", "2♠"];
+console.log(getPokerHandRank(hand2));
 /**
  * Returns the rectangles sequence of specified figure.
  * The figure is ASCII multiline string comprised of minus signs -, plus signs +,
