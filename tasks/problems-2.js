@@ -253,36 +253,41 @@ console.log(getPokerHandRank(hand2));
  *    '+-------------+\n'
  */
 function* getFigureRectangles(figure) {
-  const rows = figure.split("\n"); // Split the figure into rows
-  const height = rows.length;
-  const width = rows[0].length;
+  const lines = figure.split("\n");
+  const rectangles = [];
 
-  for (let row = 0; row < height; row++) {
-    for (let col = 0; col < width; col++) {
-      if (rows[row][col] === "+") {
-        // Found the top-left corner of a rectangle
-        for (let i = row + 1; i < height; i++) {
-          for (let j = col + 1; j < width; j++) {
-            if (rows[i][j] === "+") {
-              // Found the bottom-right corner of a rectangle
-              // Extract the rectangle by its coordinates
-              const rectangle = rows
-                .slice(row, i + 1)
-                .map((line) => line.slice(col, j + 1))
-                .join("\n");
-              yield rectangle;
+  for (let y1 = 0; y1 < lines.length; y1++) {
+    for (let x1 = 0; x1 < lines[y1].length; x1++) {
+      if (lines[y1][x1] === "+") {
+        for (let y2 = y1 + 1; y2 < lines.length; y2++) {
+          for (let x2 = x1 + 1; x2 < lines[y1].length; x2++) {
+            if (
+              lines[y2][x2] === "+" &&
+              lines[y1][x2] === "+" &&
+              lines[y2][x1] === "+"
+            ) {
+              const rectangle = [];
+              for (let y = y1; y <= y2; y++) {
+                rectangle.push(lines[y].substring(x1, x2 + 1));
+              }
+              rectangles.push(rectangle);
 
-              // Clear the rectangle in the figure
-              for (let r = row; r <= i; r++) {
-                for (let c = col; c <= j; c++) {
-                  rows[r] = rows[r].slice(0, c) + " " + rows[r].slice(c + 1);
-                }
+              // Clear the rectangle from the figure
+              for (let y = y1; y <= y2; y++) {
+                lines[y] =
+                  lines[y].substring(0, x1) +
+                  " ".repeat(x2 - x1 + 1) +
+                  lines[y].substring(x2 + 1);
               }
             }
           }
         }
       }
     }
+  }
+
+  for (const rectangle of rectangles) {
+    yield rectangle.join("\n");
   }
 }
 
@@ -292,9 +297,9 @@ const figure1 =
   "|            |\n" +
   "|            |\n" +
   "+------+-----+\n" +
-  "|            |\n" +
-  "|            |\n" +
-  "|            |\n" +
+  "|      |     |\n" +
+  "|      |     |\n" +
+  "|      |     |\n" +
   "+------+-----+\n";
 
 const figure2 =
@@ -306,12 +311,12 @@ const figure2 =
   "|             |\n" +
   "+-------------+\n";
 
-/* for (const rectangle of getFigureRectangles(figure1)) {
-  console.log(rectangle);
-} */
-for (const rectangle of getFigureRectangles(figure2)) {
+for (const rectangle of getFigureRectangles(figure1)) {
   console.log(rectangle);
 }
+/* for (const rectangle of getFigureRectangles(figure2)) {
+  console.log(rectangle);
+} */
 
 module.exports = {
   parseBankAccount: parseBankAccount,
