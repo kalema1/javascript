@@ -64,7 +64,7 @@ function parseBankAccount(bankAccount) {
       )
     )
     .join("");
-  return output;
+  return Number(output);
 }
 const bankAccount1 =
   " _  _  _  _  _  _  _  _  _ \n" +
@@ -164,62 +164,135 @@ const PokerRank = {
 };
 
 function getPokerHandRank(hand) {
-  const order = "23456789TJQKA";
-  const values = [];
-  const suits = new Set();
+  const handOne = hand.join(" ");
 
-  for (const card of hand) {
-    const value = card.slice(0, -1); // Extract the card value (excluding the suit)
-    const suit = card.slice(-1); // Extract the card suit
+  let rankArray = [];
+  let suitArray = [];
 
-    values.push(value);
-    suits.add(suit);
+  //const suits = ["C", "D", "H", "S"];
+  const ranks = [
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "J",
+    "Q",
+    "K",
+    "A",
+  ];
+
+  let arrayHandOne = handOne.split(" ");
+
+  function sorted() {
+    let sortedHand = [];
+    for (let i = 0; i < ranks.length; i++) {
+      for (let j = 0; j < arrayHandOne.length; j++) {
+        if (ranks[i] === arrayHandOne[j].charAt(0)) {
+          sortedHand.push(arrayHandOne[j]);
+        }
+      }
+    }
+    return sortedHand;
   }
-  values
-    .map((a) => String.fromCharCode([77 - order.indexOf(a[0])]))
-    .sort((a, b) => a.localeCompare(b));
 
-  const isFlush = suits.size === 1;
+  //return(sorted());
 
-  const first = values[0].charCodeAt(0);
+  let sortedHandOne = sorted(arrayHandOne);
 
-  const isStraight = values.every(
-    (value, index) => value.charCodeAt(0) - first === index
-  );
-
-  const valueCounts = {};
-  for (const value of values) {
-    valueCounts[value] = (valueCounts[value] || 0) + 1;
+  //return(sortedHandOne);
+  function suitAndRank(sortedHandOne) {
+    //return(sorted);
+    for (let i = 0; i < sortedHandOne.length; i++) {
+      let sted = sortedHandOne;
+      rankArray.push(sted[i].charAt(0));
+      suitArray.push(sted[i].charAt(1));
+    }
   }
 
-  const countValues = Object.values(valueCounts);
-  const maxCount = Math.max(...countValues);
+  suitAndRank(sortedHandOne);
 
-  if (isFlush && isStraight) {
-    return PokerRank.StraightFlush;
-  } else if (maxCount === 4) {
-    return PokerRank.FourOfKind;
-  } else if (maxCount === 3 && countValues.includes(2)) {
-    return PokerRank.FullHouse;
-  } else if (isFlush) {
-    return PokerRank.Flush;
-  } else if (isStraight) {
-    return PokerRank.Straight;
-  } else if (maxCount === 3) {
-    return PokerRank.ThreeOfKind;
-  } else if (maxCount === 2 && countValues.includes(2)) {
-    return PokerRank.TwoPairs;
-  } else if (maxCount === 2) {
-    return PokerRank.OnePair;
-  } else {
-    return PokerRank.HighCard;
+  //return(rankArray, suitArray);
+
+  function countSuites(suitArray) {
+    let suitCount = {};
+    suitArray.forEach(function (x) {
+      suitCount[x] = (suitCount[x] || 0) + 1;
+    });
+    return suitCount;
   }
+
+  function countRanks(rankArray) {
+    let rankCount = {};
+    rankArray.forEach(function (x) {
+      rankCount[x] = (rankCount[x] || 0) + 1;
+    });
+    return rankCount;
+  }
+
+  function isFlush() {
+    let cS = countSuites(suitArray);
+    if (Object.keys(cS).find((key) => cS[key] === 5)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function isStraight() {
+    let index = ranks.indexOf(rankArray[0]);
+    let ref = ranks.slice(index, index + 5).join("");
+    let section = rankArray.slice(0).join("");
+    if (section === "10JQKA" && section === ref) {
+      return "ROYALSTRAIGHT";
+    } else if (section === "A2345" || section === ref) {
+      return "STRAIGHT";
+    } else {
+      return "FALSE";
+    }
+  }
+
+  function pairs() {
+    let rS = countRanks(rankArray);
+    return Object.keys(rS).filter((key) => rS[key] === 2).length;
+  }
+
+  function whichHand() {
+    let rS = countRanks(rankArray);
+    if (isFlush() === true && isStraight() === "ROYALSTRAIGHT") {
+      return PokerRank.StraightFlush;
+    } else if (isFlush() === true && isStraight() === "STRAIGHT") {
+      return PokerRank.StraightFlush;
+    } else if (Object.keys(rS).find((key) => rS[key] === 4)) {
+      return PokerRank.FourOfKind;
+    } else if (Object.keys(rS).find((key) => rS[key] === 3) && pairs() === 1) {
+      return PokerRank.FullHouse;
+    } else if (isFlush() === true) {
+      return PokerRank.Flush;
+    } else if (isStraight() === "STRAIGHT") {
+      return PokerRank.Straight;
+    } else if (Object.keys(rS).find((key) => rS[key] === 3)) {
+      return PokerRank.ThreeOfKind;
+    } else if (pairs() === 2) {
+      return PokerRank.TwoPairs;
+    } else if (pairs() === 1) {
+      return PokerRank.OnePair;
+    } else {
+      return PokerRank.HighCard;
+    }
+  }
+
+  return whichHand();
 }
 
 const hand1 = ["4♥", "5♥", "6♥", "7♥", "8♥"];
 console.log(getPokerHandRank(hand1));
 
-const hand2 = ["A♠", "4♠", "3♠", "5♠", "2♠"];
+const hand2 = ["3♥", "4♥", "10♥", "3♦", "A♠"];
 console.log(getPokerHandRank(hand2));
 /**
  * Returns the rectangles sequence of specified figure.

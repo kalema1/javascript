@@ -167,4 +167,29 @@ describe("probelem-1", () => {
       ).toBeTruthy;
     });
   });
+
+  describe("extractRanges", () => {
+    test("Returns the string expression of the specified ordered list of integers", () => {
+      [
+        {
+          nums: [0, 1, 2, 3, 4, 5],
+          results: "0-5",
+        },
+        {
+          nums: [1, 4, 5],
+          results: "1,4,5",
+        },
+        {
+          nums: [0, 1, 2, 5, 7, 8, 9],
+          results: "0-2,5,7-9",
+        },
+        {
+          nums: [1, 2, 4, 5],
+          results: "1,2,4,5",
+        },
+      ].forEach((data) => {
+        expect(extractRanges(data.nums)).toEqual(data.results);
+      });
+    });
+  });
 });
