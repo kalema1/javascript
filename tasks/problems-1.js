@@ -230,46 +230,52 @@ console.log(res);
  *
  */
 function canDominoesMakeRow(dominoes) {
-  if (dominoes.length === 0) {
-    return true; // An empty set is always valid
-  }
-
   const graph = new Map();
 
-  // Build a graph where each domino number is a node and edges represent connections
-  for (const domino of dominoes) {
-    const [num1, num2] = domino;
-
-    if (!graph.has(num1)) {
-      graph.set(num1, new Set());
+  // Create a graph to represent the dominoes and their connections
+  for (const [x, y] of dominoes) {
+    if (!graph.has(x)) {
+      graph.set(x, []);
     }
-    if (!graph.has(num2)) {
-      graph.set(num2, new Set());
+    if (!graph.has(y)) {
+      graph.set(y, []);
     }
-
-    graph.get(num1).add(num2);
-    graph.get(num2).add(num1);
+    graph.get(x).push(y);
+    graph.get(y).push(x);
   }
 
-  // Use depth-first search (DFS) to find a valid domino chain
-  const visited = new Set();
-  const stack = [dominoes[0][0]];
-
-  while (stack.length > 0) {
-    const current = stack.pop();
-    visited.add(current);
-
-    if (graph.has(current)) {
-      for (const neighbor of graph.get(current)) {
-        if (!visited.has(neighbor)) {
-          stack.push(neighbor);
-        }
+  function dfs(node) {
+    visited.add(node);
+    for (const neighbor of graph.get(node)) {
+      if (!visited.has(neighbor)) {
+        dfs(neighbor);
       }
     }
   }
 
-  // Check if all nodes were visited
-  return graph.size === visited.size;
+  const visited = new Set();
+  let oddDegreeCount = 0;
+
+  for (const node of graph.keys()) {
+    if (graph.get(node).length % 2 !== 0) {
+      oddDegreeCount++;
+    }
+  }
+
+  // A valid domino row should have either zero or two nodes with odd degrees
+  if (oddDegreeCount === 0 || oddDegreeCount === 2) {
+    // Check if the graph is connected
+    for (const node of graph.keys()) {
+      if (!visited.has(node)) {
+        dfs(node);
+        break;
+      }
+    }
+
+    return visited.size === graph.size;
+  }
+
+  return false;
 }
 console.log(
   canDominoesMakeRow([

@@ -164,7 +164,7 @@ describe("probelem-1", () => {
           [2, 3],
           [3, 3],
         ])
-      ).toBeTruthy;
+      ).toBeFalsy;
     });
   });
 

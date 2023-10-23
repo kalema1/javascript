@@ -200,13 +200,13 @@ function getPokerHandRank(hand) {
     return sortedHand;
   }
 
-  //return(sorted());
+  //console.log(sorted());
 
   let sortedHandOne = sorted(arrayHandOne);
 
-  //return(sortedHandOne);
+  //console.log(sortedHandOne);
   function suitAndRank(sortedHandOne) {
-    //return(sorted);
+    //console.log(sorted);
     for (let i = 0; i < sortedHandOne.length; i++) {
       let sted = sortedHandOne;
       rankArray.push(sted[i].charAt(0));
@@ -216,7 +216,7 @@ function getPokerHandRank(hand) {
 
   suitAndRank(sortedHandOne);
 
-  //return(rankArray, suitArray);
+  //console.log(rankArray, suitArray);
 
   function countSuites(suitArray) {
     let suitCount = {};
@@ -292,7 +292,7 @@ function getPokerHandRank(hand) {
 const hand1 = ["4♥", "5♥", "6♥", "7♥", "8♥"];
 console.log(getPokerHandRank(hand1));
 
-const hand2 = ["3♥", "4♥", "10♥", "3♦", "A♠"];
+const hand2 = ["A♠", "4♠", "3♠", "5♠", "2♠"];
 console.log(getPokerHandRank(hand2));
 /**
  * Returns the rectangles sequence of specified figure.
@@ -387,9 +387,9 @@ const figure2 =
 for (const rectangle of getFigureRectangles(figure1)) {
   console.log(rectangle);
 }
-/* for (const rectangle of getFigureRectangles(figure2)) {
+for (const rectangle of getFigureRectangles(figure2)) {
   console.log(rectangle);
-} */
+}
 
 module.exports = {
   parseBankAccount: parseBankAccount,
