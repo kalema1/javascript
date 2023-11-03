@@ -232,7 +232,6 @@ console.log(res);
 function canDominoesMakeRow(dominoes) {
   const graph = new Map();
 
-  // Create a graph to represent the dominoes and their connections
   for (const [x, y] of dominoes) {
     if (!graph.has(x)) {
       graph.set(x, []);

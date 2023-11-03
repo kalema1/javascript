@@ -204,9 +204,7 @@ function getPokerHandRank(hand) {
 
   let sortedHandOne = sorted(arrayHandOne);
 
-  //console.log(sortedHandOne);
   function suitAndRank(sortedHandOne) {
-    //console.log(sorted);
     for (let i = 0; i < sortedHandOne.length; i++) {
       let sted = sortedHandOne;
       rankArray.push(sted[i].charAt(0));
@@ -264,7 +262,7 @@ function getPokerHandRank(hand) {
   function whichHand() {
     let rS = countRanks(rankArray);
     if (isFlush() === true && isStraight() === "ROYALSTRAIGHT") {
-      return PokerRank.StraightFlush;
+      return PokerRank.RoyalFlush;
     } else if (isFlush() === true && isStraight() === "STRAIGHT") {
       return PokerRank.StraightFlush;
     } else if (Object.keys(rS).find((key) => rS[key] === 4)) {
@@ -292,8 +290,9 @@ function getPokerHandRank(hand) {
 const hand1 = ["4♥", "5♥", "6♥", "7♥", "8♥"];
 console.log(getPokerHandRank(hand1));
 
-const hand2 = ["A♠", "4♠", "3♠", "5♠", "2♠"];
+const hand2 = ["A♥", "K♥", "Q♥", "2♦", "3♠"];
 console.log(getPokerHandRank(hand2));
+
 /**
  * Returns the rectangles sequence of specified figure.
  * The figure is ASCII multiline string comprised of minus signs -, plus signs +,
@@ -327,30 +326,23 @@ console.log(getPokerHandRank(hand2));
  */
 function* getFigureRectangles(figure) {
   const lines = figure.split("\n");
-  const rectangles = [];
+  const height = lines.length;
+  const width = lines[0].length;
 
-  for (let y1 = 0; y1 < lines.length; y1++) {
-    for (let x1 = 0; x1 < lines[y1].length; x1++) {
-      if (lines[y1][x1] === "+") {
-        for (let y2 = y1 + 1; y2 < lines.length; y2++) {
-          for (let x2 = x1 + 1; x2 < lines[y1].length; x2++) {
-            if (
-              lines[y2][x2] === "+" &&
-              lines[y1][x2] === "+" &&
-              lines[y2][x1] === "+"
-            ) {
-              const rectangle = [];
-              for (let y = y1; y <= y2; y++) {
-                rectangle.push(lines[y].substring(x1, x2 + 1));
-              }
-              rectangles.push(rectangle);
-
-              // Clear the rectangle from the figure
-              for (let y = y1; y <= y2; y++) {
-                lines[y] =
-                  lines[y].substring(0, x1) +
-                  " ".repeat(x2 - x1 + 1) +
-                  lines[y].substring(x2 + 1);
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      if (lines[y][x] === "+") {
+        for (let bottomY = y + 1; bottomY < height; bottomY++) {
+          if (lines[bottomY][x] === "+") {
+            for (let rightX = x + 1; rightX < width; rightX++) {
+              if (lines[y][rightX] === "+") {
+                if (lines[bottomY][rightX] === "+") {
+                  if (isRectangle(lines, x, y, rightX, bottomY)) {
+                    yield drawRectangle(rightX - x + 1, bottomY - y + 1);
+                    rightX = width;
+                    bottomY = height;
+                  }
+                }
               }
             }
           }
@@ -358,10 +350,52 @@ function* getFigureRectangles(figure) {
       }
     }
   }
+}
 
-  for (const rectangle of rectangles) {
-    yield rectangle.join("\n");
+/**
+ * Checks if the specified area forms a valid rectangle.
+ *
+ * @param {string[]} lines - Array of strings representing the ASCII figure.
+ * @param {number} startX - X-coordinate of the top-left corner.
+ * @param {number} startY - Y-coordinate of the top-left corner.
+ * @param {number} endX - X-coordinate of the bottom-right corner.
+ * @param {number} endY - Y-coordinate of the bottom-right corner.
+ * @return {boolean} - True if a valid rectangle is found, false otherwise.
+ */
+function isRectangle(lines, startX, startY, endX, endY) {
+  for (let y = startY; y <= endY; y++) {
+    for (let x = startX; x <= endX; x++) {
+      if (y === startY || y === endY) {
+        if ((x === startX || x === endX) && lines[y][x] !== "+") {
+          return false;
+        }
+      } else {
+        if (lines[y][x] === "+") {
+          return false;
+        }
+        if ((x === startX || x === endX) && lines[y][x] !== "|") {
+          return false;
+        }
+      }
+    }
   }
+  return true;
+}
+
+/**
+ * Draws a rectangle based on the provided dimensions.
+ *
+ * @param {number} width - Width of the rectangle.
+ * @param {number} height - Height of the rectangle.
+ * @return {string} - String representing the drawn rectangle.
+ */
+function drawRectangle(width, height) {
+  let rectangle = "+" + "-".repeat(width - 2) + "+\n";
+  for (let y = 1; y < height - 1; y++) {
+    rectangle += "|" + " ".repeat(width - 2) + "|\n";
+  }
+  rectangle += "+" + "-".repeat(width - 2) + "+\n";
+  return rectangle;
 }
 
 const figure1 =
