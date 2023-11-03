@@ -117,4 +117,35 @@ describe("problems-2", () => {
       });
     });
   });
+
+  describe("getFigureRectangles", () => {
+    test("Returns the rectangles sequence of specified figure", () => {
+      const figure1 =
+        "+------------+\n" +
+        "|            |\n" +
+        "|            |\n" +
+        "|            |\n" +
+        "+------+-----+\n" +
+        "|      |     |\n" +
+        "|      |     |\n" +
+        "+------+-----+\n";
+
+      const rectangles = getFigureRectangles(figure1);
+      const rectanglesArray = [...rectangles];
+      expect(rectanglesArray.length).toBe(3);
+      expect(rectanglesArray[0]).toEqual(
+        "+------------+\n" +
+          "|            |\n" +
+          "|            |\n" +
+          "|            |\n" +
+          "+------------+\n"
+      );
+      expect(rectanglesArray[1]).toEqual(
+        "+------+\n" + "|      |\n" + "|      |\n" + "+------+\n"
+      );
+      expect(rectanglesArray[2]).toEqual(
+        "+-----+\n" + "|     |\n" + "|     |\n" + "+-----+\n"
+      );
+    });
+  });
 });
